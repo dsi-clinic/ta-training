@@ -2,8 +2,6 @@
 
 Disciplined debugging and lightweight testing keep projects reliable. Debugging practices make errors reproducible and easier to fix. A small test suite ensures that fixes hold and that changes don’t silently break core functionality. Students are not formally required to write tests, but modeling these practices sets a strong example.
 
----
-
 ## Debugging
 - **Reproduce bugs with a minimal example**  
   Shrink the input until the error can be triggered consistently.  
