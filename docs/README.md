@@ -9,25 +9,25 @@ This section covers the **teaching, professionalism, and day-to-day responsibili
 
 ## Contents
 
-- [`/course-overview.md`](./course-overview.md)  
+- [Course Overview](./course-overview.md)  
   Course objectives, structure, and the role of TAs in the Data Science Clinic.  
 
-- [`/teaching-basics.md`](./teaching-basics.md)  
+- [Teaching Basics](./teaching-basics.md)  
   Core TA responsibilities, boundaries, and weekly expectations.  
 
-- [`/communication.md`](./communication.md)  
+- [Communication](./communication.md)  
   Best practices for professional communication with students, mentors, and the clinic director.  
 
-- [`/professionalism.md`](./professionalism.md)  
+- [Professionalism](./professionalism.md)  
   Standards of professional conduct and expectations for TAs and students.  
 
-- [`/ta-sessions.md`](./ta-sessions.md)  
+- [TA Sessions](./ta-sessions.md)  
   Playbook for running the twice-weekly TA sessions effectively.  
 
-- [`/repo-checklist.md`](./repo-checklist.md)  
+- [Repo Checklist](./repo-checklist.md)  
   Official repository evaluation checklist for TAs to use at the end of the quarter.  
 
-- [`/resources.md`](./resources.md)  
+- [Resources](./resources.md)  
   Links to campus services, coding guides, and the official Clinic website.  
 
 ## How to Use This Section
