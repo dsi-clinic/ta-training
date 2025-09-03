@@ -1,16 +1,11 @@
 # Technical Handbook
 
-This section documents the **technical standards, workflows, and review practices** that TAs and mentors are expected to enforce in the Data Science Clinic.  
-It is not student-facing — use this as a guide for coaching, repo reviews, and mentoring conversations.
-
----
+This section documents the **technical standards, workflows, and review practices** that TAs and mentors are expected to enforce in the Data Science Clinic.
 
 ## Purpose
 - Provide TAs and mentors with a reference for **evaluating and reinforcing best practices**.  
 - Support consistency in **repo hygiene, code review, and reproducibility** across projects.  
 - Equip TAs to give **actionable, constructive feedback** on technical issues.  
-
----
 
 ## Contents
 
@@ -44,19 +39,13 @@ It is not student-facing — use this as a guide for coaching, repo reviews, and
 - [Examples](./examples/)  
   Small runnable setups for TAs to practice before working with students.  
 
----
-
 ## How to Use This Section
 - Use these documents when preparing to **review student repos or pull requests**.  
 - Refer back when you need **talking points for TA sessions** (e.g., how to coach Docker, paths, or PR reviews).  
 - In final repo reviews, use these standards to **grade consistently** with the repo checklist.  
-
----
 
 ## Key Principles
 - **Enforce, don’t code**: TAs guide students to solve issues, not fix repos themselves.  
 - **Consistency**: Apply the same standards across projects so grading is fair.  
 - **Professionalism**: Model how real data science teams work.  
 - **Escalation**: Raise systemic or recurring issues with mentors and the Clinic Director.  
-
----
