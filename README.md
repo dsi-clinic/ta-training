@@ -12,7 +12,7 @@ Welcome to the Teaching Assistant (TA) training repository for the Data Science 
 ### TA Role and Expectations ([`docs/`](./docs/README.md))
 These documents cover the **teaching, professionalism, and day-to-day responsibilities** of a TA.
 
-### Technical Expectations ([`technical/`](./technical/README.md))
+### Technical Handbook ([`technical/`](./technical/README.md))
 This section documents the **technical standards, workflows, and review practices** that TAs should enforce during projects.  
 
 ## TA Expectations
@@ -23,7 +23,7 @@ As a TA, you are expected to:
 - **Track and report attendance** weekly through Canvas.  
 - **Review and merge pull requests** responsibly, ensuring repo hygiene.  
 - Evaluate project repositories during finals week using the official checklist.  
-- Maintain professionalism, uphold equity, and act as a role model for students.  
+- Maintain professionalism and act as a role model for students.  
 
 ## Getting Started
 1. Read through the [**Course Overview**](/docs/course-overview.md) and [**Teaching Basics**](/docs/teaching-basics.md) to understand your role and responsibilities.  
