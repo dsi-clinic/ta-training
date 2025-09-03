@@ -1,7 +1,6 @@
 # Data Science Clinic – TA Training
 
-Welcome to the Teaching Assistant (TA) Training Repository for the Data Science Clinic.  
-This handbook provides guidance, policies, and resources to help you succeed as a TA while supporting students working on real-world data science projects with clients.
+Welcome to the Teaching Assistant (TA) training repository for the Data Science Clinic.  This handbook provides guidance, policies, and resources to help you succeed as a TA while supporting students working on real-world data science projects with clients.
 
 ## Purpose
 - Equip TAs with the **pedagogical, technical, and professional skills** required in the Clinic.  
