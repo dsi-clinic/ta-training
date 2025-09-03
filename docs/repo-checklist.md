@@ -5,8 +5,6 @@ It is based on the Data Science Clinic coding standards and the final cleanup/te
 
 The primary goal is to ensure repositories are **clean, reproducible, and easy for the next person to work on.**
 
----
-
 ## Grading Information
 - **Project Name:**  
 - **TA Name:**  
@@ -16,15 +14,11 @@ The primary goal is to ensure repositories are **clean, reproducible, and easy f
   - File 2:  
   - File 3:  
 
----
-
 ## General Repo Hygiene
 - [ ] All work merged to `main` (or `dev`) branch; other branches deleted.  
 - [ ] No extraneous files (`.DS_Store`, `.ipynb_checkpoints`, temp files).  
 - [ ] `.gitignore` used properly; no large data files or intermediate outputs tracked.  
 - [ ] No secrets or API keys committed.  
-
----
 
 ## Documentation
 - [ ] Main `README.md` includes:  
@@ -35,8 +29,6 @@ The primary goal is to ensure repositories are **clean, reproducible, and easy f
 - [ ] Descriptions of all files and their purpose.  
 - [ ] Environment specification included (Dockerfile, requirements.txt, Makefile, or conda/micromamba recipe).  
 - [ ] Boilerplate text removed; documentation is clear and free of grammar errors.  
-
----
 
 ## Code Grading (per file)
 TAs must select **three files** edited during the quarter (at least one notebook if present).  
@@ -63,8 +55,6 @@ For each file, copy the section below and complete it.
 - [ ] Code is free of secrets or API keys.  
 - [ ] Notebook includes markdown documentation explaining purpose and context.  
 
----
-
 ## Additional Standards (Repo-Wide)
 - [ ] Directory structure is clear and logical.  
 - [ ] File and folder names avoid dates, personal names, or versions (e.g., `final_v2.py`).  
@@ -73,13 +63,9 @@ For each file, copy the section below and complete it.
 - [ ] Dependency versions pinned in `requirements.txt`.  
 - [ ] Working branches kept up-to-date with `main`.  
 
----
-
 ## Summary
 - Strengths of this repo:  
 - Weaknesses / areas for improvement:  
-
----
 
 ## TA Final Notes
 Please submit the completed checklist along with your repo evaluation notes to the clinic director.  

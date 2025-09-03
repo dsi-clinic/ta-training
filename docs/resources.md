@@ -4,8 +4,6 @@ This page provides key resources for both students and TAs.
 Always check the official Clinic website first for the most up-to-date information:  
 ➡ [Data Science Clinic Website](https://clinic.ds.uchicago.edu)
 
----
-
 ## For Students
 - **Official Clinic Website:** [https://clinic.ds.uchicago.edu](https://clinic.ds.uchicago.edu)  
   Primary hub for course information, deliverables, and policies.  
@@ -19,8 +17,6 @@ Always check the official Clinic website first for the most up-to-date informati
   - Writing center for client deliverables.  
   - Counseling and wellness support.  
 
----
-
 ## For TAs
 - **Clinic Website:** [https://clinic.ds.uchicago.edu](https://clinic.ds.uchicago.edu)  
   For official coding standards, policies, and grading procedures.  
@@ -31,8 +27,6 @@ Always check the official Clinic website first for the most up-to-date informati
 - **Mentorship Support:**  
   - Point of contact: assigned project mentor.  
   - Escalation: Clinic Director (Nick Ross).  
-
----
 
 ## Recommended References
 - **Python Development:**  
@@ -46,8 +40,6 @@ Always check the official Clinic website first for the most up-to-date informati
 - **Professional Skills:**  
   - Best practices in client communication.  
   - Writing clear technical documentation.  
-
----
 
 ## Notes
 - Students should **consult the Clinic website before asking TAs** for answers.  
