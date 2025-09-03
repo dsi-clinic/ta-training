@@ -9,35 +9,35 @@ This section documents the **technical standards, workflows, and review practice
 
 ## Contents
 
-- [Python Best Practices](./python-best-practices.md)  
-  Standards TAs should look for: style, structure, logging, and notebook usage.  
+[Python Best Practices](./python-best-practices.md)  
+Standards TAs should look for: style, structure, logging, and notebook usage.  
 
-- [Type Annotations](./type-annotations.md)  
-  How to spot missing or unclear type hints, and when to suggest them.  
+[Type Annotations](./type-annotations.md)  
+How to spot missing or unclear type hints, and when to suggest them.  
 
-- [Functions and Testing](./functions-and-testing.md)  
-  How to coach students to return values, avoid side effects, and add basic tests.  
+[Functions and Testing](./functions-and-testing.md)  
+How to coach students to return values, avoid side effects, and add basic tests.  
 
-- [Code Review](./code-review.md)  
-  Guidelines for TAs when reviewing pull requests and student repos.  
+[Code Review](./code-review.md)  
+Guidelines for TAs when reviewing pull requests and student repos.  
 
-- [GitHub Repo Management](./github-repo-management.md)  
-  Branching, PR workflows, and what TAs should enforce before merging.  
+[GitHub Repo Management](./github-repo-management.md)  
+Branching, PR workflows, and what TAs should enforce before merging.  
 
-- [Docker and Make](./docker-and-make.md)  
-  What to check in student repos and how to guide debugging.  
+[Docker and Make](./docker-and-make.md)  
+What to check in student repos and how to guide debugging.  
 
-- [Dependencies and Environments](./dependencies-and-environments.md)  
-  How to handle requirements, rebuilds, and environment issues.  
+[Dependencies and Environments](./dependencies-and-environments.md)  
+How to handle requirements, rebuilds, and environment issues.  
 
-- [Paths and I/O in Containers](./paths-and-io-in-containers.md)  
-  Common pitfalls with paths in Docker and how TAs should help troubleshoot.  
+[Paths and I/O in Containers](./paths-and-io-in-containers.md)  
+Common pitfalls with paths in Docker and how TAs should help troubleshoot.  
 
-- [Interview Exercise](./interview-question/README.md)  
-  Code review prompt used in TA interviews and training.  
+[Interview Exercise](./interview-question/README.md)  
+Code review prompt used in TA interviews and training.  
 
-- [Examples](./examples/)  
-  Small runnable setups for TAs to practice before working with students.  
+[Examples](./examples/)  
+Small runnable setups for TAs to practice before working with students.  
 
 ## How to Use This Section
 - Use these documents when preparing to **review student repos or pull requests**.  

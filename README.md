@@ -1,7 +1,6 @@
 # Data Science Clinic – TA Training
 
-Welcome to the Teaching Assistant (TA) Training Repository for the Data Science Clinic.  
-This handbook provides guidance, policies, and resources to help you succeed as a TA while supporting students working on real-world data science projects with clients.
+Welcome to the Teaching Assistant (TA) training repository for the Data Science Clinic.  This handbook provides guidance, policies, and resources to help you succeed as a TA while supporting students working on real-world data science projects with clients.
 
 ## Purpose
 - Equip TAs with the **pedagogical, technical, and professional skills** required in the Clinic.  
@@ -13,7 +12,7 @@ This handbook provides guidance, policies, and resources to help you succeed as 
 ### TA Role and Expectations ([`docs/`](./docs/README.md))
 These documents cover the **teaching, professionalism, and day-to-day responsibilities** of a TA.
 
-### Technical Expectations ([`technical/`](./technical/README.md))
+### Technical Handbook ([`technical/`](./technical/README.md))
 This section documents the **technical standards, workflows, and review practices** that TAs should enforce during projects.  
 
 ## TA Expectations
@@ -24,7 +23,7 @@ As a TA, you are expected to:
 - **Track and report attendance** weekly through Canvas.  
 - **Review and merge pull requests** responsibly, ensuring repo hygiene.  
 - Evaluate project repositories during finals week using the official checklist.  
-- Maintain professionalism, uphold equity, and act as a role model for students.  
+- Maintain professionalism and act as a role model for students.  
 
 ## Getting Started
 1. Read through the [**Course Overview**](/docs/course-overview.md) and [**Teaching Basics**](/docs/teaching-basics.md) to understand your role and responsibilities.  
