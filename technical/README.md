@@ -9,43 +9,49 @@ This section documents the **technical standards, workflows, and review practice
 
 ## Contents
 
-[Python Best Practices](./python-best-practices.md)  
-Standards TAs should look for: style, structure, logging, and notebook usage.  
+- [Python Best Practices](./python-best-practices.md)  
+  Common Python pitfalls and language-specific patterns TAs should watch for: mutable defaults, scoping issues, error handling.
 
-[Type Annotations](./type-annotations.md)  
-How to spot missing or unclear type hints, and when to suggest them.  
+- [Code Style and Structure](./code-style-and-structure.md)  
+  Guidelines for organizing code, naming conventions, documentation standards, and professional presentation.
 
-[Functions and Testing](./functions-and-testing.md)  
-How to coach students to return values, avoid side effects, and add basic tests.  
+- [Data Validation and Types](./data-validation-and-types.md)  
+  Type annotations and Pydantic validation patterns for ensuring data quality and code clarity.
 
-[Code Review](./code-review.md)  
-Guidelines for TAs when reviewing pull requests and student repos.  
+- [Configuration Management](./configuration-management.md)  
+  Managing settings, secrets, and environment-specific configuration with Pydantic Settings.
 
-[GitHub Repo Management](./github-repo-management.md)  
-Branching, PR workflows, and what TAs should enforce before merging.  
+- [Debugging and Testing](./debugging-and-testing.md)  
+  Disciplined debugging practices and lightweight testing approaches for data science projects.
 
-[Docker and Make](./docker-and-make.md)  
-What to check in student repos and how to guide debugging.  
+- [Code Review](./code-review.md)  
+  Guidelines for TAs when reviewing pull requests and student repos.
 
-[Dependencies and Environments](./dependencies-and-environments.md)  
-How to handle requirements, rebuilds, and environment issues.  
+- [GitHub Repo Management](./github-repo-management.md)  
+  Branching strategies, PR workflows, and common scenarios TAs encounter with student repositories.
 
-[Paths and I/O in Containers](./paths-and-io-in-containers.md)  
-Common pitfalls with paths in Docker and how TAs should help troubleshoot.  
+- [Docker and Make](./docker-and-make.md)  
+  Container setup patterns and Make targets for reproducible data science workflows.
 
-[Interview Exercise](./interview-question/README.md)  
-Code review prompt used in TA interviews and training.  
+- [Dependencies and Environments](./dependencies-and-environments.md)  
+  Managing Python dependencies, Docker environments, and reproducible setups.
 
-[Examples](./examples/)  
-Small runnable setups for TAs to practice before working with students.  
+- [Paths and I/O in Containers](./paths-and-io-in-containers.md)  
+  Path handling in Docker environments and separating I/O operations from computation logic.
+
+- [Interview Exercise](./interview-question/README.md)  
+  Code review prompt used in TA interviews and training.
+
+- [Examples](./examples/)  
+  Small runnable setups for TAs to practice before working with students.
 
 ## How to Use This Section
 - Use these documents when preparing to **review student repos or pull requests**.  
 - Refer back when you need **talking points for TA sessions** (e.g., how to coach Docker, paths, or PR reviews).  
-- In final repo reviews, use these standards to **grade consistently** with the repo checklist.  
+- In final repo reviews, use these standards to **grade consistently** with the repo checklist.
 
 ## Key Principles
-- **Enforce, don’t code**: TAs guide students to solve issues, not fix repos themselves.  
+- **Enforce, don't code**: TAs guide students to solve issues, not fix repos themselves.  
 - **Consistency**: Apply the same standards across projects so grading is fair.  
 - **Professionalism**: Model how real data science teams work.  
-- **Escalation**: Raise systemic or recurring issues with mentors and the Clinic Director.  
+- **Escalation**: Raise systemic or recurring issues with mentors and the Clinic Director.
