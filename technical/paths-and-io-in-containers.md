@@ -229,12 +229,27 @@ run-prod:
 
 **1. Configuration-driven paths**
 ```python
-# ✅ Good: Paths come from configuration
-@dataclass
-class AnalysisConfig:
-    data_dir: Path
-    output_dir: Path
-    survey_filename: str = "survey.csv"
+# ✅ Good: Paths come from configuration with validation
+from pydantic import BaseModel, Field, validator
+from pathlib import Path
+
+class AnalysisConfig(BaseModel):
+    """Configuration for analysis pipeline with path validation."""
+    
+    data_dir: Path = Field(..., description="Directory containing input data")
+    output_dir: Path = Field(default=Path("./outputs"))
+    survey_filename: str = Field(default="survey.csv", min_length=1)
+    
+    @validator('data_dir')
+    def data_dir_must_exist(cls, v):
+        if not v.exists():
+            raise ValueError(f"Data directory does not exist: {v}")
+        return v
+    
+    @validator('output_dir')
+    def create_output_dir(cls, v):
+        v.mkdir(parents=True, exist_ok=True)
+        return v
     
     @property
     def survey_path(self) -> Path:
