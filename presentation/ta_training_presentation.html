@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TA Technical Training - Data Science Clinic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            color: #333;
+            overflow: hidden;
+        }
+        
+        .slide {
+            display: none;
+            padding: 40px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #800000;
+        }
+        
+        h2 {
+            font-size: 2em;
+            margin-bottom: 25px;
+            color: #800000;
+            border-bottom: 2px solid #800000;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 1.4em;
+            margin: 20px 0 15px 0;
+            color: #737373;
+        }
+        
+        .slide-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        ul, ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background: rgba(128, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #800000;
+            color: #333;
+        }
+        
+        .code-block {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-size: 0.9em;
+            border: 1px solid #d9d9d9;
+            white-space: pre-wrap;
+            color: #333;
+        }
+        
+        .good {
+            border-left: 4px solid #4caf50;
+            background: #f1f8e9;
+        }
+        
+        .bad {
+            border-left: 4px solid #f44336;
+            background: #ffebee;
+        }
+        
+        .controls {
+            display: none;
+        }
+        
+        .slide-number {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #800000;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            z-index: 1000;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .workflow-step {
+            display: inline-block;
+            background: rgba(128, 0, 0, 0.1);
+            padding: 15px 25px;
+            border-radius: 25px;
+            margin: 10px;
+            position: relative;
+            border: 2px solid #800000;
+            color: #333;
+        }
+        
+        .workflow-step::after {
+            content: "→";
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+            color: #800000;
+        }
+        
+        .workflow-step:last-child::after {
+            display: none;
+        }
+        
+        .workflow-diagram {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            max-height: 60px;
+            z-index: 1000;
+        }
+        
+        .title-slide .logo {
+            position: static;
+            max-height: 100px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="slide-number">
+        <span id="current-slide">1</span> / <span id="total-slides">21</span>
+    </div>
+        
+    <!-- Slide 1: Title -->
+    <div class="slide active title-slide">
+        <div class="slide-content">
+            <div style="text-align: center;">
+                <svg class="logo" width="400" height="100" viewBox="0 0 400 100">
+                    <text x="200" y="30" text-anchor="middle" fill="#800000" font-size="20" font-weight="bold">THE UNIVERSITY OF CHICAGO</text>
+                    <line x1="50" y1="40" x2="350" y2="40" stroke="#800000" stroke-width="2"/>
+                    <text x="200" y="70" text-anchor="middle" fill="#737373" font-size="28" font-weight="bold">DATA SCIENCE</text>
+                    <text x="200" y="95" text-anchor="middle" fill="#737373" font-size="28" font-weight="bold">INSTITUTE</text>
+                </svg>
+            </div>
+            <h1>Technical Standards Training</h1>
+            <div style="text-align: center; margin-top: 50px;">
+                <h2>Data Science Clinic TA Handbook</h2>
+                <div class="highlight">
+                    <h3>Building Professional Data Science Practices</h3>
+                    <p>60-minute training session for Teaching Assistants</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 2: Training Goals -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Training Goals</h2>
+            <ul>
+                <li><strong>Create consistent code review and student coaching practices</strong>
+                    <ul><li>Same standards across all projects and TAs</li></ul>
+                </li>
+                <li><strong>Understand the 'why' behind our technical standards</strong>
+                    <ul><li>Not arbitrary rules, but industry best practices</li></ul>
+                </li>
+                <li><strong>Equip TAs to model professional data science habits</strong>
+                    <ul><li>Students learn by seeing how professionals work</li></ul>
+                </li>
+            </ul>
+            <div class="highlight">
+                <p><strong>Remember:</strong> We're preparing students for real data science careers, not just academic assignments.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 3: Core Principles -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Core Principles</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Enforce, Don't Code</h3>
+                    <p>Guide students to solutions rather than fixing code yourself</p>
+                    
+                    <h3>Consistency</h3>
+                    <p>Fair standards across all projects and teams</p>
+                </div>
+                <div>
+                    <h3>Professionalism</h3>
+                    <p>Mirror real data science team practices</p>
+                    
+                    <h3>Escalation</h3>
+                    <p>Raise systemic issues to mentors promptly</p>
+                </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Key Insight:</strong> Your job is to develop student capabilities, not deliver perfect code.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 4: Why Standards Matter -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Why These Standards Matter</h2>
+            <div class="highlight">
+                <h3>Reproducibility</h3>
+                <p>Code should work the same way for everyone, everywhere</p>
+            </div>
+            <div class="highlight">
+                <h3>Professional Skills</h3>
+                <p>Students internalize industry-level practices</p>
+            </div>
+            <div class="highlight">
+                <h3>Prevent Bugs</h3>
+                <p>Catch "works on my machine" issues early</p>
+            </div>
+            <div class="highlight">
+                <h3>Fair Reviews</h3>
+                <p>Enable consistent, actionable feedback</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 5: Coaching Techniques -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Coaching Techniques</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Ask Guiding Questions</h3>
+                    <ul>
+                        <li>"What happens if...?"</li>
+                        <li>"How would a teammate run this?"</li>
+                        <li>"What if this file didn't exist?"</li>
+                    </ul>
+                    
+                    <h3>Encourage Small PRs</h3>
+                    <ul>
+                        <li>200-400 lines max</li>
+                        <li>One feature at a time</li>
+                        <li>Easier to review and learn from</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Model Good Feedback</h3>
+                    <ul>
+                        <li>Specific and actionable</li>
+                        <li>Explain the "why"</li>
+                        <li>Suggest improvements, don't just criticize</li>
+                    </ul>
+                    
+                    <h3>Celebrate Progress</h3>
+                    <ul>
+                        <li>Acknowledge improvements</li>
+                        <li>Progress over perfection</li>
+                        <li>Build confidence incrementally</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 6: Key Technical Areas -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Key Technical Areas</h2>
+            <div class="two-column">
+                <div>
+                    <ul>
+                        <li><strong>Python Best Practices</strong>
+                            <ul><li>Common pitfalls and patterns</li></ul>
+                        </li>
+                        <li><strong>Code Style & Structure</strong>
+                            <ul><li>Organization and documentation</li></ul>
+                        </li>
+                        <li><strong>Data Validation & Types</strong>
+                            <ul><li>Pydantic and type annotations</li></ul>
+                        </li>
+                        <li><strong>Configuration Management</strong>
+                            <ul><li>Flexibility and security</li></ul>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><strong>Debugging & Testing</strong>
+                            <ul><li>Systematic problem-solving</li></ul>
+                        </li>
+                        <li><strong>Dependencies & Environments</strong>
+                            <ul><li>Reproducible setups</li></ul>
+                        </li>
+                        <li><strong>I/O Separation</strong>
+                            <ul><li>Testable, maintainable code</li></ul>
+                        </li>
+                        <li><strong>GitHub Workflows</strong>
+                            <ul><li>Professional collaboration</li></ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 7: Python Best Practices -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Python Best Practices</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Mutable Default Arguments</h3>
+                    <div class="code-block bad">def add_item(item, items=[]):
+    items.append(item)
+    return items
+
+# Dangerous! Same list shared across calls
+list1 = add_item("apple")     # ["apple"]
+list2 = add_item("banana")    # ["apple", "banana"]</div>
+                    
+                    <h3>Variable Scope Issues</h3>
+                    <div class="code-block bad">results = []
+for i in range(3):
+    # Late binding closure problem
+    results.append(lambda: i * 2)
+
+# All functions return 4 (i=2)
+[f() for f in results]  # [4, 4, 4]</div>
+                </div>
+                <div>
+                    <h3>Safe Default Arguments</h3>
+                    <div class="code-block good">def add_item(item, items=None):
+    if items is None:
+        items = []
+    items.append(item)
+    return items
+
+# Each call gets fresh list
+list1 = add_item("apple")     # ["apple"]
+list2 = add_item("banana")    # ["banana"]</div>
+                    
+                    <h3>Explicit Closures</h3>
+                    <div class="code-block good">results = []
+for i in range(3):
+    # Capture i explicitly
+    results.append(lambda x=i: x * 2)
+
+# Each function has its own value
+[f() for f in results]  # [0, 2, 4]</div>
+                </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> These aren't style issues - they're bugs waiting to happen. Help students understand why Python behaves this way.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 8: Code Style and Structure -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Code Style and Structure</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Poor Organization</h3>
+                    <div class="code-block bad">import pandas as pd
+import numpy as np
+
+def proc(d):
+    return d.groupby('cat').mean()
+
+def ld(f):
+    return pd.read_csv(f)
+
+def sv(d, f):
+    d.to_csv(f)
+
+def main():
+    d = ld('data.csv')
+    r = proc(d)
+    sv(r, 'out.csv')</div>
+                </div>
+                <div>
+                    <h3>Professional Structure</h3>
+                    <div class="code-block good">"""Survey data analysis module."""
+from pathlib import Path
+import pandas as pd
+import logging
+
+logger = logging.getLogger(__name__)
+
+def load_survey_data(file_path: Path) -> pd.DataFrame:
+    """Load survey data with validation."""
+    logger.info(f"Loading survey data from {file_path}")
+    
+    if not file_path.exists():
+        raise FileNotFoundError(f"File not found: {file_path}")
+    
+    return pd.read_csv(file_path)
+
+def calculate_category_averages(
+    df: pd.DataFrame, 
+    category_col: str = 'category'
+) -> pd.DataFrame:
+    """Calculate mean values grouped by category."""
+    return df.groupby(category_col).mean()
+
+def save_results(df: pd.DataFrame, output_path: Path) -> None:
+    """Save analysis results to CSV."""
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(output_path, index=False)
+    logger.info(f"Results saved to {output_path}")</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 9: Data Validation with Pydantic -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Data Validation with Pydantic</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Without Validation</h3>
+                    <div class="code-block bad">def process_config(config_dict):
+    # What if keys are missing?
+    # What if values are wrong type?
+    db_url = config_dict["database_url"]
+    max_workers = config_dict["max_workers"]
+    debug = config_dict["debug_mode"]
+    
+    # Runtime errors waiting to happen
+    return setup_pipeline(db_url, max_workers, debug)</div>
+                </div>
+                <div>
+                    <h3>With Pydantic</h3>
+                    <div class="code-block good">from pydantic import BaseModel, Field
+
+class PipelineConfig(BaseModel):
+    database_url: str = Field(..., min_length=1)
+    max_workers: int = Field(default=2, ge=1, le=16)
+    debug_mode: bool = Field(default=False)
+    
+    @validator('database_url')
+    def validate_db_url(cls, v):
+        if not v.startswith(('postgresql://', 'sqlite://')):
+            raise ValueError('Invalid database URL')
+        return v
+
+# Validates automatically on creation
+config = PipelineConfig(**config_dict)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 10: Type Hints -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Type Hints for Clarity</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Unclear Function</h3>
+                    <div class="code-block bad">def process_data(data, config):
+    # What type is data? 
+    # What does config contain?
+    # What gets returned?
+    result = analyze(data, config)
+    return result</div>
+                    
+                    <h3>Runtime Error</h3>
+                    <div class="code-block bad">def calculate_average(scores):
+    return sum(scores) / len(scores)
+
+# Later...
+calculate_average("85,90,78")  # TypeError!</div>
+                </div>
+                <div>
+                    <h3>Clear Expectations</h3>
+                    <div class="code-block good">def process_survey_data(
+    data: pd.DataFrame, 
+    config: AnalysisConfig
+) -> Dict[str, float]:
+    """Process survey data and return statistics."""
+    result = analyze(data, config)
+    return result</div>
+                    
+                    <h3>Early Detection</h3>
+                    <div class="code-block good">def calculate_average(scores: List[float]) -> float:
+    """Calculate mean of numeric scores."""
+    return sum(scores) / len(scores)
+
+# Type checker catches error before runtime
+calculate_average("85,90,78")  # mypy error!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 11: Configuration Management -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Configuration Management</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Hardcoded Configuration</h3>
+                    <div class="code-block bad">def analyze_data():
+    # Hardcoded values scattered throughout
+    df = pd.read_csv("/Users/alice/data/survey.csv")
+    
+    # Magic numbers with no context
+    threshold = 0.95
+    min_samples = 50
+    
+    # Database connection hardcoded
+    conn = sqlite3.connect("project_db.sqlite")
+    
+    # API key in source code
+    api_key = "sk-1234567890abcdef"</div>
+                    
+                    <h3>Environment Variables</h3>
+                    <div class="code-block bad"># .env file (often missing .env.example)
+DATA_PATH=/Users/alice/data/survey.csv
+CONFIDENCE_LEVEL=0.95
+MIN_SAMPLES=50
+DB_URL=sqlite:///project_db.sqlite
+API_KEY=sk-1234567890abcdef</div>
+                </div>
+                <div>
+                    <h3>Pydantic Settings Class</h3>
+                    <div class="code-block good">from pydantic_settings import BaseSettings
+from pathlib import Path
+
+class AnalysisConfig(BaseSettings):
+    """Centralized configuration with validation."""
+    
+    # Data paths with validation
+    data_path: Path = Field(..., description="Path to survey data")
+    output_dir: Path = Field(default=Path("./outputs"))
+    
+    # Analysis parameters with constraints
+    confidence_level: float = Field(default=0.95, ge=0.5, le=0.99)
+    min_samples: int = Field(default=50, ge=1)
+    
+    # External services
+    database_url: str = Field(..., description="Database connection string")
+    api_key: str = Field(..., description="External API key")
+    
+    @validator('data_path')
+    def validate_data_path(cls, v):
+        if not v.exists():
+            raise ValueError(f"Data file not found: {v}")
+        return v
+    
+    class Config:
+        env_file = ".env"
+
+# Usage with automatic validation
+config = AnalysisConfig()</div>
+                    
+                    <h3>.env.example File</h3>
+                    <div class="code-block good"># .env.example - commit this file
+DATA_PATH=./data/survey.csv
+CONFIDENCE_LEVEL=0.95
+MIN_SAMPLES=50
+DATABASE_URL=sqlite:///your_database.sqlite
+API_KEY=your_api_key_here</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 12: Debugging and Testing -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Debugging and Testing</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Ad Hoc Debugging</h3>
+                    <div class="code-block bad">def clean_survey_data(df):
+    # Print debugging - can't be controlled
+    print("Starting with", len(df), "rows")
+    
+    # Remove invalid responses
+    df = df[df['score'] > 0]
+    print("After score filter:", len(df))
+    
+    # Remove outliers
+    df = df[df['score'] < 100]
+    print("After outlier removal:", len(df))
+    
+    return df
+
+# No tests - hope it works!</div>
+                    
+                    <h3>No Systematic Testing</h3>
+                    <div class="code-block bad"># Manual testing in notebooks
+df = pd.read_csv('data.csv')
+result = clean_survey_data(df)
+# Visual inspection only
+result.head()</div>
+                </div>
+                <div>
+                    <h3>Structured Debugging</h3>
+                    <div class="code-block good">import logging
+logger = logging.getLogger(__name__)
+
+def clean_survey_data(df: pd.DataFrame) -> pd.DataFrame:
+    """Clean survey data with logging and validation."""
+    logger.info(f"Starting data cleaning with {len(df)} rows")
+    
+    # Validate input
+    required_cols = ['score', 'user_id']
+    missing = set(required_cols) - set(df.columns)
+    if missing:
+        raise ValueError(f"Missing columns: {missing}")
+    
+    # Remove invalid responses
+    initial_count = len(df)
+    df_clean = df[df['score'] > 0]
+    removed = initial_count - len(df_clean)
+    logger.info(f"Removed {removed} rows with invalid scores")
+    
+    # Remove outliers (configurable threshold)
+    outlier_threshold = 100
+    df_final = df_clean[df_clean['score'] < outlier_threshold]
+    outliers = len(df_clean) - len(df_final)
+    logger.info(f"Removed {outliers} outlier rows")
+    
+    logger.info(f"Cleaning complete: {len(df_final)} rows remaining")
+    return df_final</div>
+                    
+                    <h3>Test Coverage</h3>
+                    <div class="code-block good">import pytest
+import pandas as pd
+
+def test_clean_survey_data_removes_invalid_scores():
+    # Arrange
+    test_data = pd.DataFrame({
+        'user_id': [1, 2, 3, 4],
+        'score': [85, -5, 95, 0]
+    })
+    
+    # Act
+    result = clean_survey_data(test_data)
+    
+    # Assert
+    assert len(result) == 2  # Only positive scores remain
+    assert all(result['score'] > 0)
+
+def test_clean_survey_data_missing_columns():
+    # Test error handling
+    test_data = pd.DataFrame({'other_col': [1, 2, 3]})
+    
+    with pytest.raises(ValueError, match="Missing columns"):
+        clean_survey_data(test_data)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 13: Dependencies and Environments -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Dependencies and Environments</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Unpinned Dependencies</h3>
+                    <div class="code-block bad"># requirements.txt
+pandas
+numpy
+scikit-learn
+matplotlib
+requests</div>
+                    
+                    <h3>Local Installation</h3>
+                    <div class="code-block bad"># Student runs on their laptop
+pip install pandas numpy scikit-learn
+
+# Works for them, breaks for teammates
+# Different package versions
+# Different Python versions
+# Different operating systems</div>
+                    
+                    <h3>Missing Documentation</h3>
+                    <div class="code-block bad"># README.md
+## Setup
+1. Install Python
+2. Run the code
+3. Hope it works</div>
+                </div>
+                <div>
+                    <h3>Pinned Dependencies</h3>
+                    <div class="code-block good"># requirements.txt
+pandas==2.2.2
+numpy==1.26.4
+scikit-learn==1.4.2
+matplotlib==3.8.4
+requests==2.31.0
+
+# Optional: development dependencies
+# requirements-dev.txt
+pytest==8.1.1
+ruff==0.4.2
+black==24.3.0</div>
+                    
+                    <h3>Docker Environment</h3>
+                    <div class="code-block good"># Dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies first (better caching)
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source code
+COPY . .
+
+# Default command
+CMD ["python", "-m", "src.main"]</div>
+                    
+                    <h3>Clear Setup Instructions</h3>
+                    <div class="code-block good"># README.md
+## Setup
+1. Install Docker Desktop
+2. Clone this repository
+3. Run: `make build`
+4. Run: `make test`
+5. Start analysis: `make run`
+
+## Development
+- `make shell` - Interactive container
+- `make lint` - Code quality checks</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 14: Separate I/O from Computation -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Separate I/O from Computation</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Mixed Together</h3>
+                    <div class="code-block bad">def analyze_survey():
+    # I/O mixed with computation
+    df = pd.read_csv("data/survey.csv")
+    
+    # Analysis logic
+    avg_score = df['satisfaction'].mean()
+    
+    # More I/O
+    with open("results.json", "w") as f:
+        json.dump({"avg": avg_score}, f)
+    
+    print(f"Average: {avg_score}")</div>
+                    <p><strong>Problems:</strong></p>
+                    <ul>
+                        <li>Hard to test</li>
+                        <li>Can't reuse logic</li>
+                        <li>Breaks with different paths</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Separated</h3>
+                    <div class="code-block good">def calculate_satisfaction_stats(
+    df: pd.DataFrame
+) -> Dict[str, float]:
+    """Pure function - easy to test."""
+    return {
+        'avg_score': df['satisfaction'].mean(),
+        'std_score': df['satisfaction'].std()
+    }
+
+def main():
+    # I/O layer
+    df = pd.read_csv(DATA_PATH)
+    
+    # Pure computation  
+    stats = calculate_satisfaction_stats(df)
+    
+    # I/O layer
+    save_results(stats, OUTPUT_PATH)</div>
+                    <p><strong>Benefits:</strong></p>
+                    <ul>
+                        <li>Easy to test</li>
+                        <li>Reusable logic</li>
+                        <li>Path-independent</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 15: Logging & Specific Error Messages -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Logging & Specific Error Messages</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Poor Error Handling</h3>
+                    <div class="code-block bad">def load_data(path):
+    df = pd.read_csv(path)  
+    # FileNotFoundError: [Errno 2] No such file
+    
+    assert 'score' in df.columns  
+    # AssertionError (no context!)
+    
+    print("Data loaded")  # Can't control output
+    return df</div>
+                </div>
+                <div>
+                    <h3>Helpful Error Messages</h3>
+                    <div class="code-block good">import logging
+logger = logging.getLogger(__name__)
+
+def load_survey_data(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Survey file not found: {path}\n"
+            f"Current directory: {Path.cwd()}\n"  
+            f"Expected location: {path.absolute()}"
+        )
+    
+    df = pd.read_csv(path)
+    
+    required_cols = ['user_id', 'satisfaction']
+    missing = set(required_cols) - set(df.columns)
+    if missing:
+        raise ValueError(
+            f"Missing columns in {path.name}: {missing}\n"
+            f"Available: {list(df.columns)}"
+        )
+    
+    logger.info(f"Loaded {len(df)} survey responses")
+    return df</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 16: Docker & Make for Reproducibility -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Docker & Make for Reproducibility</h2>
+            <h3>Standard Project Structure</h3>
+            <div class="two-column">
+                <div>
+                    <div class="code-block"># Dockerfile
+FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+CMD ["python", "-m", "your_package.cli"]</div>
+                </div>
+                <div>
+                    <div class="code-block"># Makefile
+IMAGE=project-name
+.PHONY: build run test lint
+
+build:
+	docker build -t $(IMAGE) .
+
+run:
+	docker run --rm -it \
+		-v $(PWD):/app -w /app \
+		$(IMAGE) python -m your_package.cli
+
+test:
+	docker run --rm -it \
+		-v $(PWD):/app -w /app \
+		$(IMAGE) pytest -q</div>
+                </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Key benefit:</strong> <code>make test</code> works the same for everyone</p>
+            </div>
+            
+            <!-- Docker Workflow Visual -->
+            <div style="text-align: center; margin: 30px 0;">
+                <svg width="800" height="200" viewBox="0 0 800 200">
+                    <!-- Build step -->
+                    <rect x="50" y="50" width="120" height="80" fill="rgba(128,0,0,0.1)" stroke="#800000" stroke-width="2" rx="10"/>
+                    <text x="110" y="80" fill="#333" font-size="14" text-anchor="middle">Build</text>
+                    <text x="110" y="100" fill="#333" font-size="12" text-anchor="middle">make build</text>
+                    
+                    <!-- Arrow -->
+                    <path d="M 180 90 L 220 90 M 210 80 L 220 90 L 210 100" stroke="#4caf50" stroke-width="3" fill="none"/>
+                    
+                    <!-- Run step -->
+                    <rect x="240" y="50" width="120" height="80" fill="rgba(128,0,0,0.1)" stroke="#800000" stroke-width="2" rx="10"/>
+                    <text x="300" y="80" fill="#333" font-size="14" text-anchor="middle">Run Container</text>
+                    <text x="300" y="100" fill="#333" font-size="12" text-anchor="middle">make run</text>
+                    
+                    <!-- Arrow -->
+                    <path d="M 370 90 L 410 90 M 400 80 L 410 90 L 400 100" stroke="#4caf50" stroke-width="3" fill="none"/>
+                    
+                    <!-- Reproduce step -->
+                    <rect x="430" y="50" width="120" height="80" fill="rgba(128,0,0,0.1)" stroke="#800000" stroke-width="2" rx="10"/>
+                    <text x="490" y="80" fill="#333" font-size="14" text-anchor="middle">Reproduce</text>
+                    <text x="490" y="100" fill="#333" font-size="12" text-anchor="middle">Anywhere!</text>
+                    
+                    <!-- Details below -->
+                    <text x="110" y="150" fill="#333" font-size="11" text-anchor="middle">Same Python version</text>
+                    <text x="110" y="165" fill="#333" font-size="11" text-anchor="middle">Same packages</text>
+                    <text x="110" y="180" fill="#333" font-size="11" text-anchor="middle">Same environment</text>
+                    
+                    <text x="300" y="150" fill="#333" font-size="11" text-anchor="middle">Volume mounts</text>
+                    <text x="300" y="165" fill="#333" font-size="11" text-anchor="middle">Live code updates</text>
+                    <text x="300" y="180" fill="#333" font-size="11" text-anchor="middle">Consistent paths</text>
+                    
+                    <text x="490" y="150" fill="#333" font-size="11" text-anchor="middle">Any machine</text>
+                    <text x="490" y="165" fill="#333" font-size="11" text-anchor="middle">Same results</text>
+                    <text x="490" y="180" fill="#333" font-size="11" text-anchor="middle">No "works for me"</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 16: Git Workflow (Combined) -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Git Workflow</h2>
+            
+            <!-- Visual Diagram -->
+            <div style="text-align: center; margin: 30px 0;">
+                <svg width="800" height="300" viewBox="0 0 800 300">
+                    <!-- Main branch -->
+                    <line x1="50" y1="150" x2="750" y2="150" stroke="#800000" stroke-width="4"/>
+                    <text x="50" y="140" fill="#800000" font-size="14" font-weight="bold">main</text>
+                    
+                    <!-- Feature branch -->
+                    <line x1="200" y1="150" x2="200" y2="100" stroke="#4caf50" stroke-width="3"/>
+                    <line x1="200" y1="100" x2="500" y2="100" stroke="#4caf50" stroke-width="3"/>
+                    <line x1="500" y1="100" x2="500" y2="150" stroke="#4caf50" stroke-width="3"/>
+                    <text x="200" y="85" fill="#4caf50" font-size="14" font-weight="bold">feature branch: jd/add-validation</text>
+                    
+                    <!-- Commits on main -->
+                    <circle cx="100" cy="150" r="8" fill="#800000"/>
+                    <circle cx="300" cy="150" r="8" fill="#800000"/>
+                    <circle cx="600" cy="150" r="8" fill="#800000"/>
+                    
+                    <!-- Commits on feature branch -->
+                    <circle cx="250" cy="100" r="6" fill="#4caf50"/>
+                    <circle cx="350" cy="100" r="6" fill="#4caf50"/>
+                    <circle cx="450" cy="100" r="6" fill="#4caf50"/>
+                    
+                    <!-- Squash merge arrow -->
+                    <path d="M 500 120 L 520 135 L 500 150 L 520 135 L 500 135 Z" fill="#ff9800"/>
+                    <text x="530" y="125" fill="#ff9800" font-size="12" font-weight="bold">Squash Merge</text>
+                    
+                    <!-- Labels -->
+                    <text x="100" y="175" fill="#800000" font-size="12" text-anchor="middle" font-weight="bold">Initial</text>
+                    <text x="300" y="175" fill="#800000" font-size="12" text-anchor="middle" font-weight="bold">Other work</text>
+                    <text x="600" y="175" fill="#800000" font-size="12" text-anchor="middle" font-weight="bold">Feature added</text>
+                    
+                    <text x="250" y="70" fill="#4caf50" font-size="11" text-anchor="middle" font-weight="bold">Add tests</text>
+                    <text x="350" y="70" fill="#4caf50" font-size="11" text-anchor="middle" font-weight="bold">Fix bugs</text>
+                    <text x="450" y="70" fill="#4caf50" font-size="11" text-anchor="middle" font-weight="bold">Update docs</text>
+                </svg>
+            </div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Student Workflow</h3>
+                    <div class="code-block"># 1. Create feature branch
+git checkout -b jd/my-feature
+
+# 2. Work and commit regularly  
+git add .
+git commit -m "Add data validation"
+
+# 3. Keep current with main
+git checkout main && git pull
+git checkout jd/my-feature && git rebase main
+
+# 4. Open PR when ready
+# 5. Address feedback
+# 6. TA merges after approval</div>
+                </div>
+                <div>
+                    <h3>Benefits</h3>
+                    <ul>
+                        <li><strong>Clean History:</strong> Main shows features, not "fix typo" commits</li>
+                        <li><strong>Safe Experimentation:</strong> Feature branches can be messy</li>
+                        <li><strong>Easy Rollback:</strong> Each feature is one commit</li>
+                        <li><strong>Parallel Work:</strong> Multiple students work simultaneously</li>
+                    </ul>
+                    
+                    <h3>Common Issues</h3>
+                    <ul>
+                        <li><strong>Working directly on main</strong></li>
+                        <li><strong>Not rebasing with main</strong></li>
+                        <li><strong>Force pushing</strong> (use --force-with-lease)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 17: The Review Feedback Loop -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>The Review Feedback Loop</h2>
+            <div class="workflow-diagram">
+                <div class="workflow-step">Student Code<br>Initial implementation</div>
+                <div class="workflow-step">TA Review<br>Specific, actionable feedback</div>
+                <div class="workflow-step">Student Revision<br>Address feedback & learn</div>
+                <div class="workflow-step">Final Approval<br>Standards met</div>
+            </div>
+            
+            <div class="highlight">
+                <h3>Keys to Effective Feedback</h3>
+                <ul>
+                    <li><strong>Specific:</strong> "Add type hints to this function" not "improve code quality"</li>
+                    <li><strong>Actionable:</strong> Suggest concrete next steps</li>
+                    <li><strong>Educational:</strong> Explain the "why" behind requests</li>
+                    <li><strong>Encouraging:</strong> Acknowledge good practices you see</li>
+                </ul>
+            </div>
+            
+            <div class="two-column">
+                <div>
+                    <h4>Unhelpful Feedback</h4>
+                    <ul>
+                        <li>"This is wrong"</li>
+                        <li>"Fix the Docker setup"</li>
+                        <li>"Code quality issues"</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Helpful Feedback</h4>
+                    <ul>
+                        <li>"This function needs type hints - what does it return?"</li>
+                        <li>"Can you add a .env.example file showing required variables?"</li>
+                        <li>"Consider extracting the file reading into a separate function"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 18: Common Review Scenarios -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Common Review Scenarios</h2>
+            <div class="two-column">
+                <div>
+                    <h3>What to Look For</h3>
+                    <ul>
+                        <li><strong>Hardcoded paths:</strong> <code>/Users/alice/project/data.csv</code></li>
+                        <li><strong>Missing error handling:</strong> Files that might not exist</li>
+                        <li><strong>Unclear function names:</strong> <code>process()</code>, <code>calc()</code></li>
+                        <li><strong>Giant files:</strong> 500+ lines in one script</li>
+                        <li><strong>No type hints:</strong> Unclear parameter expectations</li>
+                        <li><strong>Secrets in code:</strong> API keys, passwords</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>How to Give Feedback</h3>
+                    <ul>
+                        <li><strong>Ask questions:</strong> "What happens if this file doesn't exist?"</li>
+                        <li><strong>Suggest alternatives:</strong> "Could we use pathlib.Path here?"</li>
+                        <li><strong>Explain benefits:</strong> "Type hints help teammates understand your code"</li>
+                        <li><strong>Reference standards:</strong> "Check section 3.2 in the handbook"</li>
+                        <li><strong>Celebrate improvements:</strong> "Great job adding docstrings!"</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <h3>Sample Review Comment</h3>
+                <div class="code-block"># Instead of: "Fix the paths"
+# Try: 
+
+"I notice this hardcoded path might break on other machines:
+`df = pd.read_csv('/Users/alice/project/data.csv')`
+
+Could we use a relative path instead? Something like:
+`from pathlib import Path`
+`data_path = Path(__file__).parent / 'data' / 'survey.csv'`
+`df = pd.read_csv(data_path)`
+
+This way anyone can run your code. Check out the 'Paths and I/O' 
+section in the handbook for more examples."</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 19: When to Escalate -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>When to Escalate to Mentors</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Immediate Escalation</h3>
+                    <ul>
+                        <li><strong>Security issues:</strong> Committed secrets, exposed credentials</li>
+                        <li><strong>Plagiarism concerns:</strong> Suspicious code similarities</li>
+                        <li><strong>Scope creep:</strong> Project requirements changing significantly</li>
+                        <li><strong>Team conflicts:</strong> Students not collaborating effectively</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Pattern-Based Escalation</h3>
+                    <ul>
+                        <li><strong>Repeated issues:</strong> Same problems across multiple teams</li>
+                        <li><strong>Systematic gaps:</strong> Everyone struggling with the same concept</li>
+                        <li><strong>Resource constraints:</strong> Students need tools/access they don't have</li>
+                        <li><strong>Timeline concerns:</strong> Teams consistently behind schedule</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <h3>How to Escalate Effectively</h3>
+                <ul>
+                    <li><strong>Document the issue:</strong> Screenshots, links, specific examples</li>
+                    <li><strong>Suggest solutions:</strong> Don't just raise problems, propose fixes</li>
+                    <li><strong>Note broader impact:</strong> How many students/teams affected?</li>
+                    <li><strong>Timeline urgency:</strong> Does this need immediate attention?</li>
+                </ul>
+            </div>
+            
+            <div class="code-block"># Good escalation message:
+"I've noticed 3 teams this week struggling with Docker setup on Windows machines. 
+They're getting permission errors when mounting volumes. This is blocking their 
+ability to run `make test`. 
+
+Suggested fix: Add Windows-specific Make targets or update the handbook with 
+Windows Docker Desktop configuration steps.
+
+This affects ~40% of our current cohort. Can we address this in Friday's 
+all-hands meeting?"</div>
+        </div>
+    </div>
+    
+    <!-- Slide 20: Practice Exercise -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Practice Time - Let's Review Code Together</h2>
+            
+            <div class="code-block">def process_survey_data():
+    data = pd.read_csv('/Users/alice/Documents/clinic/survey_data.csv')
+    
+    print("Data loaded successfully!")
+    
+    # Remove invalid responses
+    clean_data = data[data['satisfaction_score'] > 0]
+    
+    # Calculate statistics  
+    avg = clean_data['satisfaction_score'].mean()
+    dept_stats = clean_data.groupby('department')['satisfaction_score'].mean()
+    
+    # Save results
+    results = {'overall_avg': avg, 'dept_averages': dept_stats.to_dict()}
+    
+    with open('analysis_results.json', 'w') as f:
+        json.dump(results, f)
+    
+    print(f"Analysis complete! Average satisfaction: {avg}")
+    return results</div>
+            
+            <div class="highlight">
+                <h3>Discussion Questions</h3>
+                <ul>
+                    <li>What specific issues do you see?</li>
+                    <li>How would you prioritize your feedback?</li>
+                    <li>What questions would you ask the student?</li>
+                    <li>How could this code be improved incrementally?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 21: Next Steps -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Next Steps</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Use the Handbook</h3>
+                    <ul>
+                        <li>Reference during code reviews</li>
+                        <li>Share specific sections with students</li>
+                        <li>Bookmark common patterns</li>
+                        <li>Suggest handbook updates when needed</li>
+                    </ul>
+                    
+                    <h3>Practice First</h3>
+                    <ul>
+                        <li>Try the included examples</li>
+                        <li>Run through Docker/Make workflows</li>
+                        <li>Practice giving constructive feedback</li>
+                        <li>Test handbook recommendations</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Start Small</h3>
+                    <ul>
+                        <li>Focus on 2-3 key areas initially</li>
+                        <li>Build consistency gradually</li>
+                        <li>Celebrate student improvements</li>
+                        <li>Document what works well</li>
+                    </ul>
+                    
+                    <h3>Communicate Regularly</h3>
+                    <ul>
+                        <li>Weekly TA check-ins</li>
+                        <li>Share challenging scenarios</li>
+                        <li>Escalate patterns promptly</li>
+                        <li>Contribute to handbook improvements</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <h3>Remember: You're Building Professional Data Scientists</h3>
+                <p>Every code review, every standard enforced, every coaching conversation shapes how students will approach data science throughout their careers. The habits they learn here will serve them for years to come.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 21: Questions & Discussion -->
+    <div class="slide">
+        <div class="slide-content">
+            <h1>Questions & Discussion</h1>
+            <div style="text-align: center; margin-top: 80px;">
+                <div class="highlight">
+                    <h2>Thank you!</h2>
+                    <p>Let's discuss any questions about:</p>
+                    <ul style="text-align: left; max-width: 600px; margin: 30px auto;">
+                        <li>Specific technical standards</li>
+                        <li>Code review techniques</li>
+                        <li>Student coaching strategies</li>
+                        <li>Escalation scenarios</li>
+                        <li>Handbook usage and improvements</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); text-align: center;">
+                <p><strong>Full handbook available for reference</strong></p>
+                <p><strong>Examples in technical/examples/ directory</strong></p>
+                <p><strong>Questions? Reach out anytime!</strong></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        console.log('Script loading...');
+        
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        console.log('Found', totalSlides, 'slides');
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+        
+        function showSlide(n) {
+            console.log('Showing slide', n);
+            slides[currentSlide].classList.remove('active');
+            currentSlide = Math.max(0, Math.min(n, totalSlides - 1));
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+        
+        function goToNextSlide() {
+            console.log('Next slide clicked');
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+        
+        function goToPrevSlide() {
+            console.log('Previous slide clicked');
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+        
+        // Simple keyboard handling
+        document.addEventListener('keydown', function(e) {
+            console.log('Key pressed:', e.key);
+            
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    goToNextSlide();
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    goToPrevSlide();
+                    break;
+            }
+        });
+        
+        // Initialize
+        console.log('Ready!');
+    </script>
+</body>
+</html>
