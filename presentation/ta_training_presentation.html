@@ -179,22 +179,12 @@
         
     <!-- Slide 1: Title -->
     <div class="slide active title-slide">
-        <div class="slide-content">
-            <div style="text-align: center;">
-                <svg class="logo" width="400" height="100" viewBox="0 0 400 100">
-                    <text x="200" y="30" text-anchor="middle" fill="#800000" font-size="20" font-weight="bold">THE UNIVERSITY OF CHICAGO</text>
-                    <line x1="50" y1="40" x2="350" y2="40" stroke="#800000" stroke-width="2"/>
-                    <text x="200" y="70" text-anchor="middle" fill="#737373" font-size="28" font-weight="bold">DATA SCIENCE</text>
-                    <text x="200" y="95" text-anchor="middle" fill="#737373" font-size="28" font-weight="bold">INSTITUTE</text>
-                </svg>
-            </div>
-            <h1>Technical Standards Training</h1>
-            <div style="text-align: center; margin-top: 50px;">
-                <h2>Data Science Clinic TA Handbook</h2>
-                <div class="highlight">
-                    <h3>Building Professional Data Science Practices</h3>
-                    <p>60-minute training session for Teaching Assistants</p>
-                </div>
+        <div class="slide-content" style="text-align: center; margin-top: 100px;">
+            <h1>UChicago Data Science Clinic</h1>
+            <div style="margin-top: 20px;">
+                <h2>TA Technical Training</h2>
+                <h3>Building Professional Data Science Practices</h3>
+                <p>A 60-minute training session for Teaching Assistants</p>
             </div>
         </div>
     </div>
@@ -457,6 +447,9 @@ def save_results(df: pd.DataFrame, output_path: Path) -> None:
     logger.info(f"Results saved to {output_path}")</div>
                 </div>
             </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> Good structure isn't about following rules - it's about making code maintainable and collaborative. Help students see how clear names and documentation save time for their future selves and teammates.</p>
+            </div>
         </div>
     </div>
     
@@ -495,6 +488,9 @@ class PipelineConfig(BaseModel):
 # Validates automatically on creation
 config = PipelineConfig(**config_dict)</div>
                 </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> Pydantic isn't just validation - it's early error detection that saves debugging time. When students load configuration or API data, suggest Pydantic to catch problems before they become mysterious runtime failures.</p>
             </div>
         </div>
     </div>
@@ -538,6 +534,9 @@ calculate_average("85,90,78")  # TypeError!</div>
 # Type checker catches error before runtime
 calculate_average("85,90,78")  # mypy error!</div>
                 </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> Type hints aren't just documentation - they're early error detection. Focus on public functions and anywhere data types aren't obvious. Help students see how type hints make code self-documenting and catch bugs before runtime.</p>
             </div>
         </div>
     </div>
@@ -611,6 +610,9 @@ MIN_SAMPLES=50
 DATABASE_URL=sqlite:///your_database.sqlite
 API_KEY=your_api_key_here</div>
                 </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> Configuration management prevents "works on my machine" problems. Look for hardcoded values, missing .env.example files, and secrets in code. Pydantic settings classes catch configuration errors early and document what's required.</p>
             </div>
         </div>
     </div>
@@ -701,6 +703,9 @@ def test_clean_survey_data_missing_columns():
         clean_survey_data(test_data)</div>
                 </div>
             </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> Systematic debugging saves time and builds professional habits. Look for print statements instead of logging, functions without error handling, and missing tests. Help students see testing as insurance, not extra work.</p>
+            </div>
         </div>
     </div>
     
@@ -779,6 +784,9 @@ CMD ["python", "-m", "src.main"]</div>
 - `make lint` - Code quality checks</div>
                 </div>
             </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> Reproducible environments prevent collaboration breakdowns. Check for missing requirements.txt, unpinned versions, and missing setup instructions. Docker isn't complexity - it's consistency across team members.</p>
+            </div>
         </div>
     </div>
     
@@ -801,12 +809,6 @@ CMD ["python", "-m", "src.main"]</div>
         json.dump({"avg": avg_score}, f)
     
     print(f"Average: {avg_score}")</div>
-                    <p><strong>Problems:</strong></p>
-                    <ul>
-                        <li>Hard to test</li>
-                        <li>Can't reuse logic</li>
-                        <li>Breaks with different paths</li>
-                    </ul>
                 </div>
                 <div>
                     <h3>Separated</h3>
@@ -828,13 +830,10 @@ def main():
     
     # I/O layer
     save_results(stats, OUTPUT_PATH)</div>
-                    <p><strong>Benefits:</strong></p>
-                    <ul>
-                        <li>Easy to test</li>
-                        <li>Reusable logic</li>
-                        <li>Path-independent</li>
-                    </ul>
                 </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> I/O separation makes code testable and reusable. Look for functions that both read files AND do computation - that's a refactoring opportunity. Pure functions are easier to test, debug, and understand.</p>
             </div>
         </div>
     </div>
@@ -883,6 +882,9 @@ def load_survey_data(path: Path) -> pd.DataFrame:
     return df</div>
                 </div>
             </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> Good error messages are love letters to future debuggers. Replace generic exceptions with specific, actionable messages. Logging beats print statements - it can be controlled and filtered appropriately.</p>
+            </div>
         </div>
     </div>
     
@@ -921,7 +923,7 @@ test:
                 </div>
             </div>
             <div class="highlight">
-                <p><strong>Key benefit:</strong> <code>make test</code> works the same for everyone</p>
+                <p><strong>Key Teaching Points:</strong> Reproducible environments prevent collaboration breakdowns. Check for missing requirements.txt, unpinned versions, and missing setup instructions. Docker isn't complexity - it's consistency across team members.</p>
             </div>
             
             <!-- Docker Workflow Visual -->
@@ -981,7 +983,7 @@ test:
                     <line x1="200" y1="150" x2="200" y2="100" stroke="#4caf50" stroke-width="3"/>
                     <line x1="200" y1="100" x2="500" y2="100" stroke="#4caf50" stroke-width="3"/>
                     <line x1="500" y1="100" x2="500" y2="150" stroke="#4caf50" stroke-width="3"/>
-                    <text x="200" y="85" fill="#4caf50" font-size="14" font-weight="bold">feature branch: jd/add-validation</text>
+                    <text x="20" y="90" fill="#4caf50" font-size="14" font-weight="bold">branch: jd/add-validation</text>
                     
                     <!-- Commits on main -->
                     <circle cx="100" cy="150" r="8" fill="#800000"/>
@@ -1129,8 +1131,7 @@ Could we use a relative path instead? Something like:
 `data_path = Path(__file__).parent / 'data' / 'survey.csv'`
 `df = pd.read_csv(data_path)`
 
-This way anyone can run your code. Check out the 'Paths and I/O' 
-section in the handbook for more examples."</div>
+This way anyone can run your code."</div>
             </div>
         </div>
     </div>
