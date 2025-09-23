@@ -117,6 +117,50 @@
             border-radius: 20px;
             font-size: 1.1em;
             z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .nav-arrow {
+            cursor: pointer;
+            width: 0;
+            height: 0;
+            transition: opacity 0.2s ease;
+            user-select: none;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .nav-arrow#prev-arrow {
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 10px solid white;
+            margin-right: 5px;
+        }
+
+        .nav-arrow#next-arrow {
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 10px solid white;
+            margin-left: 5px;
+        }
+
+        .nav-arrow:hover {
+            opacity: 0.8;
+        }
+
+        .nav-arrow.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-arrow.disabled#prev-arrow {
+            border-right-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-arrow.disabled#next-arrow {
+            border-left-color: rgba(255, 255, 255, 0.3);
         }
         
         .two-column {
@@ -174,7 +218,9 @@
 <body>
     
     <div class="slide-number">
-        <span id="current-slide">1</span> / <span id="total-slides">21</span>
+        <span class="nav-arrow" id="prev-arrow"></span>
+        <span><span id="current-slide">1</span> / <span id="total-slides">24</span></span>
+        <span class="nav-arrow" id="next-arrow"></span>
     </div>
         
     <!-- Slide 1: Title -->
@@ -259,79 +305,31 @@
         </div>
     </div>
     
-    <!-- Slide 5: Coaching Techniques -->
-    <div class="slide">
-        <div class="slide-content">
-            <h2>Coaching Techniques</h2>
-            <div class="two-column">
-                <div>
-                    <h3>Ask Guiding Questions</h3>
-                    <ul>
-                        <li>"What happens if...?"</li>
-                        <li>"How would a teammate run this?"</li>
-                        <li>"What if this file didn't exist?"</li>
-                    </ul>
-                    
-                    <h3>Encourage Small PRs</h3>
-                    <ul>
-                        <li>200-400 lines max</li>
-                        <li>One feature at a time</li>
-                        <li>Easier to review and learn from</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Model Good Feedback</h3>
-                    <ul>
-                        <li>Specific and actionable</li>
-                        <li>Explain the "why"</li>
-                        <li>Suggest improvements, don't just criticize</li>
-                    </ul>
-                    
-                    <h3>Celebrate Progress</h3>
-                    <ul>
-                        <li>Acknowledge improvements</li>
-                        <li>Progress over perfection</li>
-                        <li>Build confidence incrementally</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Slide 6: Key Technical Areas -->
+    <!-- Slide 5: Key Technical Areas -->
     <div class="slide">
         <div class="slide-content">
             <h2>Key Technical Areas</h2>
             <div class="two-column">
                 <div>
                     <ul>
-                        <li><strong>Python Best Practices</strong>
-                            <ul><li>Common pitfalls and patterns</li></ul>
-                        </li>
                         <li><strong>Code Style & Structure</strong>
                             <ul><li>Organization and documentation</li></ul>
                         </li>
-                        <li><strong>Data Validation & Types</strong>
-                            <ul><li>Pydantic and type annotations</li></ul>
-                        </li>
-                        <li><strong>Configuration Management</strong>
-                            <ul><li>Flexibility and security</li></ul>
+                        <li><strong>Debugging & Testing</strong>
+                            <ul><li>Systematic problem-solving</li></ul>
                         </li>
                     </ul>
                 </div>
                 <div>
                     <ul>
-                        <li><strong>Debugging & Testing</strong>
-                            <ul><li>Systematic problem-solving</li></ul>
-                        </li>
-                        <li><strong>Dependencies & Environments</strong>
-                            <ul><li>Reproducible setups</li></ul>
-                        </li>
-                        <li><strong>I/O Separation</strong>
-                            <ul><li>Testable, maintainable code</li></ul>
+                        <li><strong>Docker & Make</strong>
+                            <ul><li>Reproducible environments</li></ul>
                         </li>
                         <li><strong>GitHub Workflows</strong>
                             <ul><li>Professional collaboration</li></ul>
+                        </li>
+                        <li><strong>Code Review Process</strong>
+                            <ul><li>Effective feedback loops</li></ul>
                         </li>
                     </ul>
                 </div>
@@ -339,59 +337,7 @@
         </div>
     </div>
     
-    <!-- Slide 7: Python Best Practices -->
-    <div class="slide">
-        <div class="slide-content">
-            <h2>Python Best Practices</h2>
-            <div class="two-column">
-                <div>
-                    <h3>Mutable Default Arguments</h3>
-                    <div class="code-block bad">def add_item(item, items=[]):
-    items.append(item)
-    return items
-
-# Dangerous! Same list shared across calls
-list1 = add_item("apple")     # ["apple"]
-list2 = add_item("banana")    # ["apple", "banana"]</div>
-                    
-                    <h3>Variable Scope Issues</h3>
-                    <div class="code-block bad">results = []
-for i in range(3):
-    # Late binding closure problem
-    results.append(lambda: i * 2)
-
-# All functions return 4 (i=2)
-[f() for f in results]  # [4, 4, 4]</div>
-                </div>
-                <div>
-                    <h3>Safe Default Arguments</h3>
-                    <div class="code-block good">def add_item(item, items=None):
-    if items is None:
-        items = []
-    items.append(item)
-    return items
-
-# Each call gets fresh list
-list1 = add_item("apple")     # ["apple"]
-list2 = add_item("banana")    # ["banana"]</div>
-                    
-                    <h3>Explicit Closures</h3>
-                    <div class="code-block good">results = []
-for i in range(3):
-    # Capture i explicitly
-    results.append(lambda x=i: x * 2)
-
-# Each function has its own value
-[f() for f in results]  # [0, 2, 4]</div>
-                </div>
-            </div>
-            <div class="highlight">
-                <p><strong>Key Teaching Points:</strong> These aren't style issues - they're bugs waiting to happen. Help students understand why Python behaves this way.</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Slide 8: Code Style and Structure -->
+    <!-- Slide 6: Code Style and Structure -->
     <div class="slide">
         <div class="slide-content">
             <h2>Code Style and Structure</h2>
@@ -453,171 +399,7 @@ def save_results(df: pd.DataFrame, output_path: Path) -> None:
         </div>
     </div>
     
-    <!-- Slide 9: Data Validation with Pydantic -->
-    <div class="slide">
-        <div class="slide-content">
-            <h2>Data Validation with Pydantic</h2>
-            <div class="two-column">
-                <div>
-                    <h3>Without Validation</h3>
-                    <div class="code-block bad">def process_config(config_dict):
-    # What if keys are missing?
-    # What if values are wrong type?
-    db_url = config_dict["database_url"]
-    max_workers = config_dict["max_workers"]
-    debug = config_dict["debug_mode"]
-    
-    # Runtime errors waiting to happen
-    return setup_pipeline(db_url, max_workers, debug)</div>
-                </div>
-                <div>
-                    <h3>With Pydantic</h3>
-                    <div class="code-block good">from pydantic import BaseModel, Field
-
-class PipelineConfig(BaseModel):
-    database_url: str = Field(..., min_length=1)
-    max_workers: int = Field(default=2, ge=1, le=16)
-    debug_mode: bool = Field(default=False)
-    
-    @validator('database_url')
-    def validate_db_url(cls, v):
-        if not v.startswith(('postgresql://', 'sqlite://')):
-            raise ValueError('Invalid database URL')
-        return v
-
-# Validates automatically on creation
-config = PipelineConfig(**config_dict)</div>
-                </div>
-            </div>
-            <div class="highlight">
-                <p><strong>Key Teaching Points:</strong> Pydantic isn't just validation - it's early error detection that saves debugging time. When students load configuration or API data, suggest Pydantic to catch problems before they become mysterious runtime failures.</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Slide 10: Type Hints -->
-    <div class="slide">
-        <div class="slide-content">
-            <h2>Type Hints for Clarity</h2>
-            <div class="two-column">
-                <div>
-                    <h3>Unclear Function</h3>
-                    <div class="code-block bad">def process_data(data, config):
-    # What type is data? 
-    # What does config contain?
-    # What gets returned?
-    result = analyze(data, config)
-    return result</div>
-                    
-                    <h3>Runtime Error</h3>
-                    <div class="code-block bad">def calculate_average(scores):
-    return sum(scores) / len(scores)
-
-# Later...
-calculate_average("85,90,78")  # TypeError!</div>
-                </div>
-                <div>
-                    <h3>Clear Expectations</h3>
-                    <div class="code-block good">def process_survey_data(
-    data: pd.DataFrame, 
-    config: AnalysisConfig
-) -> Dict[str, float]:
-    """Process survey data and return statistics."""
-    result = analyze(data, config)
-    return result</div>
-                    
-                    <h3>Early Detection</h3>
-                    <div class="code-block good">def calculate_average(scores: List[float]) -> float:
-    """Calculate mean of numeric scores."""
-    return sum(scores) / len(scores)
-
-# Type checker catches error before runtime
-calculate_average("85,90,78")  # mypy error!</div>
-                </div>
-            </div>
-            <div class="highlight">
-                <p><strong>Key Teaching Points:</strong> Type hints aren't just documentation - they're early error detection. Focus on public functions and anywhere data types aren't obvious. Help students see how type hints make code self-documenting and catch bugs before runtime.</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Slide 11: Configuration Management -->
-    <div class="slide">
-        <div class="slide-content">
-            <h2>Configuration Management</h2>
-            <div class="two-column">
-                <div>
-                    <h3>Hardcoded Configuration</h3>
-                    <div class="code-block bad">def analyze_data():
-    # Hardcoded values scattered throughout
-    df = pd.read_csv("/Users/alice/data/survey.csv")
-    
-    # Magic numbers with no context
-    threshold = 0.95
-    min_samples = 50
-    
-    # Database connection hardcoded
-    conn = sqlite3.connect("project_db.sqlite")
-    
-    # API key in source code
-    api_key = "sk-1234567890abcdef"</div>
-                    
-                    <h3>Environment Variables</h3>
-                    <div class="code-block bad"># .env file (often missing .env.example)
-DATA_PATH=/Users/alice/data/survey.csv
-CONFIDENCE_LEVEL=0.95
-MIN_SAMPLES=50
-DB_URL=sqlite:///project_db.sqlite
-API_KEY=sk-1234567890abcdef</div>
-                </div>
-                <div>
-                    <h3>Pydantic Settings Class</h3>
-                    <div class="code-block good">from pydantic_settings import BaseSettings
-from pathlib import Path
-
-class AnalysisConfig(BaseSettings):
-    """Centralized configuration with validation."""
-    
-    # Data paths with validation
-    data_path: Path = Field(..., description="Path to survey data")
-    output_dir: Path = Field(default=Path("./outputs"))
-    
-    # Analysis parameters with constraints
-    confidence_level: float = Field(default=0.95, ge=0.5, le=0.99)
-    min_samples: int = Field(default=50, ge=1)
-    
-    # External services
-    database_url: str = Field(..., description="Database connection string")
-    api_key: str = Field(..., description="External API key")
-    
-    @validator('data_path')
-    def validate_data_path(cls, v):
-        if not v.exists():
-            raise ValueError(f"Data file not found: {v}")
-        return v
-    
-    class Config:
-        env_file = ".env"
-
-# Usage with automatic validation
-config = AnalysisConfig()</div>
-                    
-                    <h3>.env.example File</h3>
-                    <div class="code-block good"># .env.example - commit this file
-DATA_PATH=./data/survey.csv
-CONFIDENCE_LEVEL=0.95
-MIN_SAMPLES=50
-DATABASE_URL=sqlite:///your_database.sqlite
-API_KEY=your_api_key_here</div>
-                </div>
-            </div>
-            <div class="highlight">
-                <p><strong>Key Teaching Points:</strong> Configuration management prevents "works on my machine" problems. Look for hardcoded values, missing .env.example files, and secrets in code. Pydantic settings classes catch configuration errors early and document what's required.</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Slide 12: Debugging and Testing -->
+    <!-- Slide 7: Debugging and Testing -->
     <div class="slide">
         <div class="slide-content">
             <h2>Debugging and Testing</h2>
@@ -709,182 +491,7 @@ def test_clean_survey_data_missing_columns():
         </div>
     </div>
     
-    <!-- Slide 13: Dependencies and Environments -->
-    <div class="slide">
-        <div class="slide-content">
-            <h2>Dependencies and Environments</h2>
-            <div class="two-column">
-                <div>
-                    <h3>Unpinned Dependencies</h3>
-                    <div class="code-block bad"># Old requirements.txt approach
-pandas
-numpy
-scikit-learn
-matplotlib
-requests</div>
-                    
-                    <h3>Local Installation</h3>
-                    <div class="code-block bad"># Student runs on their laptop
-pip install pandas numpy scikit-learn
-
-# Works for them, breaks for teammates
-# Different package versions
-# Different Python versions
-# Different operating systems</div>
-                    
-                    <h3>Missing Documentation</h3>
-                    <div class="code-block bad"># README.md
-## Setup
-1. Install Python
-2. Run the code
-3. Hope it works</div>
-                </div>
-                <div>
-                    <h3>Modern Dependencies</h3>
-                    <div class="code-block good"># pyproject.toml
-[project]
-name = "survey-analysis"
-dependencies = [
-    "pandas==2.2.2",
-    "numpy==1.26.4",
-    "scikit-learn==1.4.2",
-]
-
-[project.optional-dependencies]
-dev = [
-    "pytest==8.1.1",
-    "ruff==0.4.2",
-]</div>
-                    
-                    <h3>uv + Docker Environment</h3>
-                    <div class="code-block good"># Dockerfile
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
-
-WORKDIR /app
-COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --no-dev
-COPY . .
-CMD ["uv", "run", "python", "app.py"]</div>
-                    
-                    <h3>Clear Setup Instructions</h3>
-                    <div class="code-block good"># README.md
-## Setup
-1. Install Docker Desktop
-2. Clone this repository
-3. Run: `make build`
-4. Run: `make test`
-5. Start analysis: `make run`
-
-## Development
-- `make shell` - Interactive container
-- `make sync` - Update dependencies</div>
-                </div>
-            </div>
-            <div class="highlight">
-                <p><strong>Key Teaching Points:</strong> Modern dependency management with uv and lock files prevents collaboration breakdowns. Check for missing pyproject.toml, unpinned versions, and missing uv.lock files. Docker + uv isn't complexity - it's consistency across team members.</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Slide 14: Separate I/O from Computation -->
-    <div class="slide">
-        <div class="slide-content">
-            <h2>Separate I/O from Computation</h2>
-            <div class="two-column">
-                <div>
-                    <h3>Mixed Together</h3>
-                    <div class="code-block bad">def analyze_survey():
-    # I/O mixed with computation
-    df = pd.read_csv("data/survey.csv")
-    
-    # Analysis logic
-    avg_score = df['satisfaction'].mean()
-    
-    # More I/O
-    with open("results.json", "w") as f:
-        json.dump({"avg": avg_score}, f)
-    
-    print(f"Average: {avg_score}")</div>
-                </div>
-                <div>
-                    <h3>Separated</h3>
-                    <div class="code-block good">def calculate_satisfaction_stats(
-    df: pd.DataFrame
-) -> Dict[str, float]:
-    """Pure function - easy to test."""
-    return {
-        'avg_score': df['satisfaction'].mean(),
-        'std_score': df['satisfaction'].std()
-    }
-
-def main():
-    # I/O layer
-    df = pd.read_csv(DATA_PATH)
-    
-    # Pure computation  
-    stats = calculate_satisfaction_stats(df)
-    
-    # I/O layer
-    save_results(stats, OUTPUT_PATH)</div>
-                </div>
-            </div>
-            <div class="highlight">
-                <p><strong>Key Teaching Points:</strong> I/O separation makes code testable and reusable. Look for functions that both read files AND do computation - that's a refactoring opportunity. Pure functions are easier to test, debug, and understand.</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Slide 15: Logging & Specific Error Messages -->
-    <div class="slide">
-        <div class="slide-content">
-            <h2>Logging & Specific Error Messages</h2>
-            <div class="two-column">
-                <div>
-                    <h3>Poor Error Handling</h3>
-                    <div class="code-block bad">def load_data(path):
-    df = pd.read_csv(path)  
-    # FileNotFoundError: [Errno 2] No such file
-    
-    assert 'score' in df.columns  
-    # AssertionError (no context!)
-    
-    print("Data loaded")  # Can't control output
-    return df</div>
-                </div>
-                <div>
-                    <h3>Helpful Error Messages</h3>
-                    <div class="code-block good">import logging
-logger = logging.getLogger(__name__)
-
-def load_survey_data(path: Path) -> pd.DataFrame:
-    if not path.exists():
-        raise FileNotFoundError(
-            f"Survey file not found: {path}\n"
-            f"Current directory: {Path.cwd()}\n"  
-            f"Expected location: {path.absolute()}"
-        )
-    
-    df = pd.read_csv(path)
-    
-    required_cols = ['user_id', 'satisfaction']
-    missing = set(required_cols) - set(df.columns)
-    if missing:
-        raise ValueError(
-            f"Missing columns in {path.name}: {missing}\n"
-            f"Available: {list(df.columns)}"
-        )
-    
-    logger.info(f"Loaded {len(df)} survey responses")
-    return df</div>
-                </div>
-            </div>
-            <div class="highlight">
-                <p><strong>Key Teaching Points:</strong> Good error messages are love letters to future debuggers. Replace generic exceptions with specific, actionable messages. Logging beats print statements - it can be controlled and filtered appropriately.</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Slide 16: Docker & Make for Reproducibility -->
+    <!-- Slide 8: Docker & Make for Reproducibility -->
     <div class="slide">
         <div class="slide-content">
             <h2>Docker & Make for Reproducibility</h2>
@@ -982,7 +589,7 @@ sync:
         </div>
     </div>
     
-    <!-- Slide 16: Git Workflow (Combined) -->
+    <!-- Slide 9: Git Workflow -->
     <div class="slide">
         <div class="slide-content">
             <h2>Git Workflow</h2>
@@ -1060,10 +667,14 @@ git checkout jd/my-feature && git rebase main
                     </ul>
                 </div>
             </div>
+            
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> Feature branches encourage experimentation without fear of breaking main. Squash merging keeps history clean and makes it easy to rollback entire features. Help students understand that messy commits on feature branches are fine - the final merge is what matters.</p>
+            </div>
         </div>
     </div>
     
-    <!-- Slide 17: The Review Feedback Loop -->
+    <!-- Slide 10: The Review Feedback Loop -->
     <div class="slide">
         <div class="slide-content">
             <h2>The Review Feedback Loop</h2>
@@ -1105,7 +716,46 @@ git checkout jd/my-feature && git rebase main
         </div>
     </div>
     
-    <!-- Slide 18: Common Review Scenarios -->
+    <!-- Slide 11: Coaching Techniques -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Coaching Techniques</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Ask Guiding Questions</h3>
+                    <ul>
+                        <li>"What happens if...?"</li>
+                        <li>"How would a teammate run this?"</li>
+                        <li>"What if this file didn't exist?"</li>
+                    </ul>
+                    
+                    <h3>Encourage Small PRs</h3>
+                    <ul>
+                        <li>200-400 lines max</li>
+                        <li>One feature at a time</li>
+                        <li>Easier to review and learn from</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Model Good Feedback</h3>
+                    <ul>
+                        <li>Specific and actionable</li>
+                        <li>Explain the "why"</li>
+                        <li>Suggest improvements, don't just criticize</li>
+                    </ul>
+                    
+                    <h3>Celebrate Progress</h3>
+                    <ul>
+                        <li>Acknowledge improvements</li>
+                        <li>Progress over perfection</li>
+                        <li>Build confidence incrementally</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 12: Common Review Scenarios -->
     <div class="slide">
         <div class="slide-content">
             <h2>Common Review Scenarios</h2>
@@ -1127,7 +777,6 @@ git checkout jd/my-feature && git rebase main
                         <li><strong>Ask questions:</strong> "What happens if this file doesn't exist?"</li>
                         <li><strong>Suggest alternatives:</strong> "Could we use pathlib.Path here?"</li>
                         <li><strong>Explain benefits:</strong> "Type hints help teammates understand your code"</li>
-                        <li><strong>Reference standards:</strong> "Check section 3.2 in the handbook"</li>
                         <li><strong>Celebrate improvements:</strong> "Great job adding docstrings!"</li>
                     </ul>
                 </div>
@@ -1151,7 +800,7 @@ This way anyone can run your code."</div>
         </div>
     </div>
     
-    <!-- Slide 19: When to Escalate -->
+    <!-- Slide 13: When to Escalate -->
     <div class="slide">
         <div class="slide-content">
             <h2>When to Escalate to Mentors</h2>
@@ -1199,7 +848,7 @@ all-hands meeting?"</div>
         </div>
     </div>
     
-    <!-- Slide 20: Practice Exercise -->
+    <!-- Slide 14: Practice Exercise -->
     <div class="slide">
         <div class="slide-content">
             <h2>Practice Time - Let's Review Code Together</h2>
@@ -1237,7 +886,7 @@ all-hands meeting?"</div>
         </div>
     </div>
     
-    <!-- Slide 21: Next Steps -->
+    <!-- Slide 15: Next Steps -->
     <div class="slide">
         <div class="slide-content">
             <h2>Next Steps</h2>
@@ -1285,7 +934,7 @@ all-hands meeting?"</div>
         </div>
     </div>
     
-    <!-- Slide 21: Questions & Discussion -->
+    <!-- Slide 16: Questions & Discussion -->
     <div class="slide">
         <div class="slide-content">
             <h1>Questions & Discussion</h1>
@@ -1306,7 +955,414 @@ all-hands meeting?"</div>
             <div style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); text-align: center;">
                 <p><strong>Full handbook available for reference</strong></p>
                 <p><strong>Examples in technical/examples/ directory</strong></p>
+                <p><strong>Additional topics covered in appendix slides</strong></p>
                 <p><strong>Questions? Reach out anytime!</strong></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 17: Appendix Title -->
+    <div class="slide">
+        <div class="slide-content" style="text-align: center; margin-top: 100px;">
+            <h1>Appendix</h1>
+            <div style="margin-top: 20px;">
+                <h2>Technical Deep Dives</h2>
+                <h3>Detailed reference materials for specific topics</h3>
+                <div class="highlight" style="margin-top: 40px;">
+                    <p>These slides provide in-depth coverage of additional technical topics. Use them as reference during code reviews or for follow-up discussions with students.</p>
+                    <p><strong>Topics covered:</strong> Type hints, Python best practices, Pydantic validation, configuration management, dependency management, I/O separation patterns, and logging & error messages.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 18: Type Hints for Clarity -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Type Hints for Clarity</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Unclear Function</h3>
+                    <div class="code-block bad">def process_data(data, config):
+    # What type is data? 
+    # What does config contain?
+    # What gets returned?
+    result = analyze(data, config)
+    return result</div>
+                    
+                    <h3>Runtime Error</h3>
+                    <div class="code-block bad">def calculate_average(scores):
+    return sum(scores) / len(scores)
+
+# Later...
+calculate_average("85,90,78")  # TypeError!</div>
+                </div>
+                <div>
+                    <h3>Clear Expectations</h3>
+                    <div class="code-block good">def process_survey_data(
+    data: pd.DataFrame, 
+    config: AnalysisConfig
+) -> Dict[str, float]:
+    """Process survey data and return statistics."""
+    result = analyze(data, config)
+    return result</div>
+                    
+                    <h3>Early Detection</h3>
+                    <div class="code-block good">def calculate_average(scores: List[float]) -> float:
+    """Calculate mean of numeric scores."""
+    return sum(scores) / len(scores)
+
+# Type checker catches error before runtime
+calculate_average("85,90,78")  # mypy error!</div>
+                </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> Type hints aren't just documentation - they're early error detection. Focus on public functions and anywhere data types aren't obvious. Help students see how type hints make code self-documenting and catch bugs before runtime.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 19: Python Best Practices -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Python Best Practices</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Mutable Default Arguments</h3>
+                    <div class="code-block bad">def add_item(item, items=[]):
+    items.append(item)
+    return items
+
+# Dangerous! Same list shared across calls
+list1 = add_item("apple")     # ["apple"]
+list2 = add_item("banana")    # ["apple", "banana"]</div>
+                    
+                    <h3>Variable Scope Issues</h3>
+                    <div class="code-block bad">results = []
+for i in range(3):
+    # Late binding closure problem
+    results.append(lambda: i * 2)
+
+# All functions return 4 (i=2)
+[f() for f in results]  # [4, 4, 4]</div>
+                </div>
+                <div>
+                    <h3>Safe Default Arguments</h3>
+                    <div class="code-block good">def add_item(item, items=None):
+    if items is None:
+        items = []
+    items.append(item)
+    return items
+
+# Each call gets fresh list
+list1 = add_item("apple")     # ["apple"]
+list2 = add_item("banana")    # ["banana"]</div>
+                    
+                    <h3>Explicit Closures</h3>
+                    <div class="code-block good">results = []
+for i in range(3):
+    # Capture i explicitly
+    results.append(lambda x=i: x * 2)
+
+# Each function has its own value
+[f() for f in results]  # [0, 2, 4]</div>
+                </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> These aren't style issues - they're bugs waiting to happen. Help students understand why Python behaves this way.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 20: Data Validation with Pydantic -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Data Validation with Pydantic</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Without Validation</h3>
+                    <div class="code-block bad">def process_config(config_dict):
+    # What if keys are missing?
+    # What if values are wrong type?
+    db_url = config_dict["database_url"]
+    max_workers = config_dict["max_workers"]
+    debug = config_dict["debug_mode"]
+    
+    # Runtime errors waiting to happen
+    return setup_pipeline(db_url, max_workers, debug)</div>
+                </div>
+                <div>
+                    <h3>With Pydantic</h3>
+                    <div class="code-block good">from pydantic import BaseModel, Field
+
+class PipelineConfig(BaseModel):
+    database_url: str = Field(..., min_length=1)
+    max_workers: int = Field(default=2, ge=1, le=16)
+    debug_mode: bool = Field(default=False)
+    
+    @validator('database_url')
+    def validate_db_url(cls, v):
+        if not v.startswith(('postgresql://', 'sqlite://')):
+            raise ValueError('Invalid database URL')
+        return v
+
+# Validates automatically on creation
+config = PipelineConfig(**config_dict)</div>
+                </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> Pydantic isn't just validation - it's early error detection that saves debugging time. When students load configuration or API data, suggest Pydantic to catch problems before they become mysterious runtime failures.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 21: Configuration Management -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Configuration Management</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Hardcoded Configuration</h3>
+                    <div class="code-block bad">def analyze_data():
+    # Hardcoded values scattered throughout
+    df = pd.read_csv("/Users/alice/data/survey.csv")
+    
+    # Magic numbers with no context
+    threshold = 0.95
+    min_samples = 50
+    
+    # Database connection hardcoded
+    conn = sqlite3.connect("project_db.sqlite")
+    
+    # API key in source code
+    api_key = "sk-1234567890abcdef"</div>
+                    
+                    <h3>Environment Variables</h3>
+                    <div class="code-block bad"># .env file (often missing .env.example)
+DATA_PATH=/Users/alice/data/survey.csv
+CONFIDENCE_LEVEL=0.95
+MIN_SAMPLES=50
+DB_URL=sqlite:///project_db.sqlite
+API_KEY=sk-1234567890abcdef</div>
+                </div>
+                <div>
+                    <h3>Pydantic Settings Class</h3>
+                    <div class="code-block good">from pydantic_settings import BaseSettings
+from pathlib import Path
+
+class AnalysisConfig(BaseSettings):
+    """Centralized configuration with validation."""
+    
+    # Data paths with validation
+    data_path: Path = Field(..., description="Path to survey data")
+    output_dir: Path = Field(default=Path("./outputs"))
+    
+    # Analysis parameters with constraints
+    confidence_level: float = Field(default=0.95, ge=0.5, le=0.99)
+    min_samples: int = Field(default=50, ge=1)
+    
+    # External services
+    database_url: str = Field(..., description="Database connection string")
+    api_key: str = Field(..., description="External API key")
+    
+    @validator('data_path')
+    def validate_data_path(cls, v):
+        if not v.exists():
+            raise ValueError(f"Data file not found: {v}")
+        return v
+    
+    class Config:
+        env_file = ".env"
+
+# Usage with automatic validation
+config = AnalysisConfig()</div>
+                    
+                    <h3>.env.example File</h3>
+                    <div class="code-block good"># .env.example - commit this file
+DATA_PATH=./data/survey.csv
+CONFIDENCE_LEVEL=0.95
+MIN_SAMPLES=50
+DATABASE_URL=sqlite:///your_database.sqlite
+API_KEY=your_api_key_here</div>
+                </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> Configuration management prevents "works on my machine" problems. Look for hardcoded values, missing .env.example files, and secrets in code. Pydantic settings classes catch configuration errors early and document what's required.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 22: Dependencies and Environments -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Dependencies and Environments</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Unpinned Dependencies</h3>
+                    <div class="code-block bad"># Old requirements.txt approach
+pandas
+numpy
+scikit-learn
+matplotlib
+requests</div>
+                    
+                    <h3>Local Installation</h3>
+                    <div class="code-block bad"># Student runs on their laptop
+pip install pandas numpy scikit-learn
+
+# Works for them, breaks for teammates
+# Different package versions
+# Different Python versions
+# Different operating systems</div>
+                    
+                    <h3>Missing Documentation</h3>
+                    <div class="code-block bad"># README.md
+## Setup
+1. Install Python
+2. Run the code
+3. Hope it works</div>
+                </div>
+                <div>
+                    <h3>Modern Dependencies</h3>
+                    <div class="code-block good"># pyproject.toml
+[project]
+name = "survey-analysis"
+dependencies = [
+    "pandas==2.2.2",
+    "numpy==1.26.4",
+    "scikit-learn==1.4.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.1.1",
+    "ruff==0.4.2",
+]</div>
+                    
+                    <h3>uv + Docker Environment</h3>
+                    <div class="code-block good"># Dockerfile
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+
+WORKDIR /app
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-dev
+COPY . .
+CMD ["uv", "run", "python", "app.py"]</div>
+                    
+                    <h3>Clear Setup Instructions</h3>
+                    <div class="code-block good"># README.md
+## Setup
+1. Install Docker Desktop
+2. Clone this repository
+3. Run: `make build`
+4. Run: `make test`
+5. Start analysis: `make run`
+
+## Development
+- `make shell` - Interactive container
+- `make sync` - Update dependencies</div>
+                </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> Modern dependency management with uv and lock files prevents collaboration breakdowns. Check for missing pyproject.toml, unpinned versions, and missing uv.lock files. Docker + uv isn't complexity - it's consistency across team members.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 23: Separate I/O from Computation -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Separate I/O from Computation</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Mixed Together</h3>
+                    <div class="code-block bad">def analyze_survey():
+    # I/O mixed with computation
+    df = pd.read_csv("data/survey.csv")
+    
+    # Analysis logic
+    avg_score = df['satisfaction'].mean()
+    
+    # More I/O
+    with open("results.json", "w") as f:
+        json.dump({"avg": avg_score}, f)
+    
+    print(f"Average: {avg_score}")</div>
+                </div>
+                <div>
+                    <h3>Separated</h3>
+                    <div class="code-block good">def calculate_satisfaction_stats(
+    df: pd.DataFrame
+) -> Dict[str, float]:
+    """Pure function - easy to test."""
+    return {
+        'avg_score': df['satisfaction'].mean(),
+        'std_score': df['satisfaction'].std()
+    }
+
+def main():
+    # I/O layer
+    df = pd.read_csv(DATA_PATH)
+    
+    # Pure computation  
+    stats = calculate_satisfaction_stats(df)
+    
+    # I/O layer
+    save_results(stats, OUTPUT_PATH)</div>
+                </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> I/O separation makes code testable and reusable. Look for functions that both read files AND do computation - that's a refactoring opportunity. Pure functions are easier to test, debug, and understand.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 24: Logging & Specific Error Messages -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Logging & Specific Error Messages</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Poor Error Handling</h3>
+                    <div class="code-block bad">def load_data(path):
+    df = pd.read_csv(path)  
+    # FileNotFoundError: [Errno 2] No such file
+    
+    assert 'score' in df.columns  
+    # AssertionError (no context!)
+    
+    print("Data loaded")  # Can't control output
+    return df</div>
+                </div>
+                <div>
+                    <h3>Helpful Error Messages</h3>
+                    <div class="code-block good">import logging
+logger = logging.getLogger(__name__)
+
+def load_survey_data(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Survey file not found: {path}\n"
+            f"Current directory: {Path.cwd()}\n"  
+            f"Expected location: {path.absolute()}"
+        )
+    
+    df = pd.read_csv(path)
+    
+    required_cols = ['user_id', 'satisfaction']
+    missing = set(required_cols) - set(df.columns)
+    if missing:
+        raise ValueError(
+            f"Missing columns in {path.name}: {missing}\n"
+            f"Available: {list(df.columns)}"
+        )
+    
+    logger.info(f"Loaded {len(df)} survey responses")
+    return df</div>
+                </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> Good error messages are love letters to future debuggers. Replace generic exceptions with specific, actionable messages. Logging beats print statements - it can be controlled and filtered appropriately.</p>
             </div>
         </div>
     </div>
@@ -1322,12 +1378,30 @@ all-hands meeting?"</div>
         
         document.getElementById('total-slides').textContent = totalSlides;
         
+        // Navigation arrow elements
+        const prevArrow = document.getElementById('prev-arrow');
+        const nextArrow = document.getElementById('next-arrow');
+
+        // Add click handlers for navigation arrows
+        prevArrow.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent any other click handlers
+            goToPrevSlide();
+        });
+
+        nextArrow.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent any other click handlers
+            goToNextSlide();
+        });
+
         function showSlide(n) {
             console.log('Showing slide', n);
             slides[currentSlide].classList.remove('active');
             currentSlide = Math.max(0, Math.min(n, totalSlides - 1));
             slides[currentSlide].classList.add('active');
             document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            // Update arrow states
+            updateArrowStates();
         }
         
         function goToNextSlide() {
@@ -1341,6 +1415,22 @@ all-hands meeting?"</div>
             console.log('Previous slide clicked');
             if (currentSlide > 0) {
                 showSlide(currentSlide - 1);
+            }
+        }
+
+        function updateArrowStates() {
+            // Disable/enable previous arrow
+            if (currentSlide === 0) {
+                prevArrow.classList.add('disabled');
+            } else {
+                prevArrow.classList.remove('disabled');
+            }
+            
+            // Disable/enable next arrow
+            if (currentSlide === totalSlides - 1) {
+                nextArrow.classList.add('disabled');
+            } else {
+                nextArrow.classList.remove('disabled');
             }
         }
         
@@ -1359,6 +1449,11 @@ all-hands meeting?"</div>
                     goToPrevSlide();
                     break;
             }
+        });
+        
+        // Initialize arrow states
+        document.addEventListener('DOMContentLoaded', function() {
+            updateArrowStates();
         });
         
         // Initialize
