@@ -22,7 +22,7 @@ As a TA, you are expected to:
 - Support students with **technical issues** (Git, Python, Docker) and reinforce best practices.  
 - **Track and report attendance** weekly through Canvas.  
 - **Review and merge pull requests** responsibly, ensuring repo hygiene.  
-- Evaluate project repositories during finals week using the official checklist.  
+- Evaluate project repositories during finals week using the [official checklist](https://clinic.ds.uchicago.edu/rubrics/final-technical-cleanup.html).  
 - Maintain professionalism and act as a role model for students.  
 
 ## Getting Started

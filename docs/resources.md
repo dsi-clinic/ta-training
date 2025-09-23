@@ -1,8 +1,7 @@
 # Resources
 
 This page provides key resources for both students and TAs.  
-Always check the official Clinic website first for the most up-to-date information:  
-➡ [Data Science Clinic Website](https://clinic.ds.uchicago.edu)
+Always check the official Clinic website first for the most up-to-date information: [Data Science Clinic Website](https://clinic.ds.uchicago.edu)
 
 ## For Students
 - **Official Clinic Website:** [https://clinic.ds.uchicago.edu](https://clinic.ds.uchicago.edu)  

@@ -5,7 +5,7 @@
 - Track and report attendance via Canvas.  
 - Support students with technical issues (GitHub workflows, debugging, Docker, etc.).  
 - Ensure students adhere to professional project workflows.  
-- Evaluate project repositories during finals week using the official checklist.  
+- Evaluate project repositories during finals week using the [official checklist](https://clinic.ds.uchicago.edu/rubrics/final-technical-cleanup.html).  
 
 ## Best Practices for TA Sessions
 - Treat sessions as **structured working time**, not office hours.  

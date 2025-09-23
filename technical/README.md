@@ -48,7 +48,7 @@ This section documents the **technical standards, workflows, and review practice
 ## How to Use This Section
 - Use these documents when preparing to **review student repos or pull requests**.  
 - Refer back when you need **talking points for TA sessions** (e.g., how to coach Docker, paths, or PR reviews).  
-- In final repo reviews, use these standards to **grade consistently** with the repo checklist.
+- In final repo reviews, use these standards to **grade consistently** with the [official repo evaluation checklist](https://clinic.ds.uchicago.edu/rubrics/final-technical-cleanup.html).
 
 ## Key Principles
 - **Enforce, don't code**: TAs guide students to solve issues, not fix repos themselves.  

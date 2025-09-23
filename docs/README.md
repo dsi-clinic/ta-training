@@ -24,9 +24,6 @@ Standards of professional conduct and expectations for TAs and students.
 [TA Sessions](./ta-sessions.md)  
 Playbook for running the twice-weekly TA sessions effectively.  
 
-[Repo Checklist](./repo-checklist.md)  
-Official repository evaluation checklist for TAs to use at the end of the quarter.  
-
 [Resources](./resources.md)  
 Links to campus services, coding guides, and the official Clinic website.  
 
