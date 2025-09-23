@@ -10,7 +10,8 @@ Guidelines for organizing Python code in data science projects. These patterns m
 ```
 project/
 ├── README.md
-├── requirements.txt
+├── pyproject.toml
+├── uv.lock
 ├── Dockerfile
 ├── Makefile
 ├── .gitignore

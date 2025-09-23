@@ -175,10 +175,10 @@ settings = DataPipelineSettings()
 **Passing environment variables to containers**
 ```dockerfile
 # Dockerfile
-FROM python:3.11-slim
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-dev
 COPY . .
 
 # Don't set secrets in Dockerfile - pass at runtime

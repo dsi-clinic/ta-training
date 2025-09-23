@@ -1,6 +1,15 @@
-FROM python:3.11-slim
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy dependency files
+COPY pyproject.toml uv.lock ./
+
+# Install dependencies using uv with lock file
+RUN uv sync --frozen --no-dev
+
+# Copy source code
 COPY . .
-CMD ["python", "app.py"]
+
+# Default command
+CMD ["uv", "run", "python", "app.py"]

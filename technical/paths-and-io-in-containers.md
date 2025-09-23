@@ -210,11 +210,12 @@ def main():
 # Container: python -m analysis --data-dir /mounted/data
 ```
 
+
 **Using with Make targets**
 ```makefile
 # Development with local data
 run-local:
-	python -m your_package.main --data-dir ./data/dev
+	uv run python -m your_package.main --data-dir ./data/dev
 
 # Container with mounted production data  
 run-prod:
@@ -222,7 +223,7 @@ run-prod:
 		-v /prod/data:/data:ro \
 		-v $(PWD)/outputs:/outputs \
 		$(IMAGE_NAME) \
-		python -m your_package.main --data-dir /data --output-dir /outputs
+		uv run python -m your_package.main --data-dir /data --output-dir /outputs
 ```
 
 ## Common patterns TAs should recognize

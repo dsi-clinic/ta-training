@@ -3,9 +3,19 @@ requires = ["setuptools >= 64.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-requires-python = ">=3.10"
-name = "ta-training"
-dynamic = ["version"]
+requires-python = ">=3.12"
+name = "ta-training-demo"
+version = "0.1.0"
+description = "Minimal example demonstrating Docker + Make + uv workflow"
+dependencies = [
+    "pandas==2.2.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff==0.5.5", 
+    "pytest==8.2.0",
+]
 
 [tool.ruff.lint]
 extend-select = [
