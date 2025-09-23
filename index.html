@@ -474,7 +474,7 @@ def test_clean_survey_data_removes_invalid_scores():
     result = clean_survey_data(test_data)
     
     # Assert
-    assert len(result) == 2  # Only positive scores remain
+    assert len(result) == 2
     assert all(result['score'] > 0)
 
 def test_clean_survey_data_missing_columns():
@@ -663,7 +663,6 @@ git checkout jd/my-feature && git rebase main
                     <ul>
                         <li><strong>Working directly on main</strong></li>
                         <li><strong>Not rebasing with main</strong></li>
-                        <li><strong>Force pushing</strong> (use --force-with-lease)</li>
                     </ul>
                 </div>
             </div>
