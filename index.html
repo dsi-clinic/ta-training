@@ -716,7 +716,7 @@ def test_clean_survey_data_missing_columns():
             <div class="two-column">
                 <div>
                     <h3>Unpinned Dependencies</h3>
-                    <div class="code-block bad"># requirements.txt
+                    <div class="code-block bad"># Old requirements.txt approach
 pandas
 numpy
 scikit-learn
@@ -740,35 +740,31 @@ pip install pandas numpy scikit-learn
 3. Hope it works</div>
                 </div>
                 <div>
-                    <h3>Pinned Dependencies</h3>
-                    <div class="code-block good"># requirements.txt
-pandas==2.2.2
-numpy==1.26.4
-scikit-learn==1.4.2
-matplotlib==3.8.4
-requests==2.31.0
+                    <h3>Modern Dependencies</h3>
+                    <div class="code-block good"># pyproject.toml
+[project]
+name = "survey-analysis"
+dependencies = [
+    "pandas==2.2.2",
+    "numpy==1.26.4",
+    "scikit-learn==1.4.2",
+]
 
-# Optional: development dependencies
-# requirements-dev.txt
-pytest==8.1.1
-ruff==0.4.2
-black==24.3.0</div>
+[project.optional-dependencies]
+dev = [
+    "pytest==8.1.1",
+    "ruff==0.4.2",
+]</div>
                     
-                    <h3>Docker Environment</h3>
+                    <h3>uv + Docker Environment</h3>
                     <div class="code-block good"># Dockerfile
-FROM python:3.11-slim
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
 WORKDIR /app
-
-# Install dependencies first (better caching)
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy source code
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-dev
 COPY . .
-
-# Default command
-CMD ["python", "-m", "src.main"]</div>
+CMD ["uv", "run", "python", "app.py"]</div>
                     
                     <h3>Clear Setup Instructions</h3>
                     <div class="code-block good"># README.md
@@ -781,11 +777,11 @@ CMD ["python", "-m", "src.main"]</div>
 
 ## Development
 - `make shell` - Interactive container
-- `make lint` - Code quality checks</div>
+- `make sync` - Update dependencies</div>
                 </div>
             </div>
             <div class="highlight">
-                <p><strong>Key Teaching Points:</strong> Reproducible environments prevent collaboration breakdowns. Check for missing requirements.txt, unpinned versions, and missing setup instructions. Docker isn't complexity - it's consistency across team members.</p>
+                <p><strong>Key Teaching Points:</strong> Modern dependency management with uv and lock files prevents collaboration breakdowns. Check for missing pyproject.toml, unpinned versions, and missing uv.lock files. Docker + uv isn't complexity - it's consistency across team members.</p>
             </div>
         </div>
     </div>
@@ -892,21 +888,30 @@ def load_survey_data(path: Path) -> pd.DataFrame:
     <div class="slide">
         <div class="slide-content">
             <h2>Docker & Make for Reproducibility</h2>
-            <h3>Standard Project Structure</h3>
+            <h3>Modern Project Structure with uv</h3>
             <div class="two-column">
                 <div>
                     <div class="code-block"># Dockerfile
-FROM python:3.11-slim
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+
+# Copy dependency files
+COPY pyproject.toml uv.lock ./
+
+# Install dependencies using uv
+RUN uv sync --frozen --no-dev
+
+# Copy source code
 COPY . .
-CMD ["python", "-m", "your_package.cli"]</div>
+
+# Default command
+CMD ["uv", "run", "python", "app.py"]</div>
                 </div>
                 <div>
                     <div class="code-block"># Makefile
 IMAGE=project-name
-.PHONY: build run test lint
+.PHONY: build run test lint sync
 
 build:
 	docker build -t $(IMAGE) .
@@ -914,16 +919,26 @@ build:
 run:
 	docker run --rm -it \
 		-v $(PWD):/app -w /app \
-		$(IMAGE) python -m your_package.cli
+		$(IMAGE) uv run python app.py
 
 test:
 	docker run --rm -it \
 		-v $(PWD):/app -w /app \
-		$(IMAGE) pytest -q</div>
+		$(IMAGE) uv run pytest -q
+
+lint:
+	docker run --rm -it \
+		-v $(PWD):/app -w /app \
+		$(IMAGE) uv run ruff check .
+
+sync:
+	docker run --rm -it \
+		-v $(PWD):/app -w /app \
+		$(IMAGE) uv sync</div>
                 </div>
             </div>
             <div class="highlight">
-                <p><strong>Key Teaching Points:</strong> Reproducible environments prevent collaboration breakdowns. Check for missing requirements.txt, unpinned versions, and missing setup instructions. Docker isn't complexity - it's consistency across team members.</p>
+                <p><strong>Key Teaching Points:</strong> Modern Python packaging with uv provides faster, more reliable dependency management. Check that projects have pyproject.toml, uv.lock is committed, and make commands use `uv run`. This workflow eliminates "works on my machine" problems.</p>
             </div>
             
             <!-- Docker Workflow Visual -->
@@ -951,13 +966,13 @@ test:
                     <text x="490" y="100" fill="#333" font-size="12" text-anchor="middle">Anywhere!</text>
                     
                     <!-- Details below -->
-                    <text x="110" y="150" fill="#333" font-size="11" text-anchor="middle">Same Python version</text>
-                    <text x="110" y="165" fill="#333" font-size="11" text-anchor="middle">Same packages</text>
-                    <text x="110" y="180" fill="#333" font-size="11" text-anchor="middle">Same environment</text>
+                    <text x="110" y="150" fill="#333" font-size="11" text-anchor="middle">uv manages deps</text>
+                    <text x="110" y="165" fill="#333" font-size="11" text-anchor="middle">Lock file ensures</text>
+                    <text x="110" y="180" fill="#333" font-size="11" text-anchor="middle">exact versions</text>
                     
                     <text x="300" y="150" fill="#333" font-size="11" text-anchor="middle">Volume mounts</text>
                     <text x="300" y="165" fill="#333" font-size="11" text-anchor="middle">Live code updates</text>
-                    <text x="300" y="180" fill="#333" font-size="11" text-anchor="middle">Consistent paths</text>
+                    <text x="300" y="180" fill="#333" font-size="11" text-anchor="middle">Fast iteration</text>
                     
                     <text x="490" y="150" fill="#333" font-size="11" text-anchor="middle">Any machine</text>
                     <text x="490" y="165" fill="#333" font-size="11" text-anchor="middle">Same results</text>
