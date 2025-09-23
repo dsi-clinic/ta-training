@@ -133,9 +133,28 @@ git push --force-with-lease origin branch-name
 # Don't merge until CI passes - help student debug
 # 1. Check the CI logs together
 # 2. Run the failing command locally:
+make build  # First check if the container builds
 make test
 make lint
 # 3. Guide them to fix the issue, don't fix it yourself
+```
+
+**"Dependencies not working in container"**
+```bash
+# Common issues with uv and pyproject.toml
+# 1. Check if uv.lock is committed
+git status  # Should show uv.lock as tracked
+
+# 2. Verify pyproject.toml has dependencies
+cat pyproject.toml  # Should see [project] dependencies section
+
+# 3. Test dependency installation
+make build  # Should install from uv.lock
+
+# 4. If lock file is missing:
+uv lock  # Generate lock file
+git add uv.lock
+git commit -m "Add dependency lock file"
 ```
 
 **"Student's branch is way behind main"**

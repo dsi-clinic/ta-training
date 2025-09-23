@@ -257,11 +257,17 @@ def load_config(config_path: str) -> ProjectConfig:
 ```
 
 **Integration in requirements.txt**
-```txt
-# TAs should see these in student dependencies
-pydantic>=2.0.0
-ruff==0.7.2
-pre-commit~=3.5
+```toml
+[project]
+dependencies = [
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff==0.7.2",
+    "pre-commit~=3.5",
+]
 ```
 
 ## What TAs should look for in code reviews
