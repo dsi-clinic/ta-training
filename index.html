@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TA Technical Standards Training - Data Science Clinic</title>
+    
+    <!-- Prism.js for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -89,8 +95,20 @@
             overflow-x: auto;
             font-size: 0.9em;
             border: 1px solid #d9d9d9;
-            white-space: pre-wrap;
             color: #333;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+        
+        .code-block code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
         }
         
         .good {
@@ -340,7 +358,7 @@
             <div class="two-column">
                 <div>
                     <h3>Poor Organization</h3>
-                    <div class="code-block bad">import pandas as pd
+                    <div class="code-block bad"><pre><code class="language-python">import pandas as pd
 import numpy as np
 
 def proc(d):
@@ -355,11 +373,11 @@ def sv(d, f):
 def main():
     d = ld('data.csv')
     r = proc(d)
-    sv(r, 'out.csv')</div>
+    sv(r, 'out.csv')</code></pre></div>
                 </div>
                 <div>
                     <h3>Professional Structure</h3>
-                    <div class="code-block good">"""Survey data analysis module."""
+                    <div class="code-block good"><pre><code class="language-python">"""Survey data analysis module."""
 from pathlib import Path
 import pandas as pd
 import logging
@@ -386,7 +404,7 @@ def save_results(df: pd.DataFrame, output_path: Path) -> None:
     """Save analysis results to CSV."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(output_path, index=False)
-    logger.info(f"Results saved to {output_path}")</div>
+    logger.info(f"Results saved to {output_path}")</code></pre></div>
                 </div>
             </div>
             <div class="highlight">
@@ -402,7 +420,7 @@ def save_results(df: pd.DataFrame, output_path: Path) -> None:
             <div class="two-column">
                 <div>
                     <h3>Ad Hoc Debugging</h3>
-                    <div class="code-block bad">def clean_survey_data(df):
+                    <div class="code-block bad"><pre><code class="language-python">def clean_survey_data(df):
     # Print debugging - can't be controlled
     print("Starting with", len(df), "rows")
     
@@ -416,18 +434,18 @@ def save_results(df: pd.DataFrame, output_path: Path) -> None:
     
     return df
 
-# No tests - hope it works!</div>
+# No tests - hope it works!</code></pre></div>
                     
                     <h3>No Systematic Testing</h3>
-                    <div class="code-block bad"># Manual testing in notebooks
+                    <div class="code-block bad"><pre><code class="language-python"># Manual testing in notebooks
 df = pd.read_csv('data.csv')
 result = clean_survey_data(df)
 # Visual inspection only
-result.head()</div>
+result.head()</code></pre></div>
                 </div>
                 <div>
                     <h3>Structured Debugging</h3>
-                    <div class="code-block good">import logging
+                    <div class="code-block good"><pre><code class="language-python">import logging
 logger = logging.getLogger(__name__)
 
 def clean_survey_data(df: pd.DataFrame) -> pd.DataFrame:
@@ -453,36 +471,40 @@ def clean_survey_data(df: pd.DataFrame) -> pd.DataFrame:
     logger.info(f"Removed {outliers} outlier rows")
     
     logger.info(f"Cleaning complete: {len(df_final)} rows remaining")
-    return df_final</div>
+    return df_final</code></pre></div>
                     
-                    <h3>Test Coverage</h3>
-                    <div class="code-block good">import pytest
-import pandas as pd
+                    <h3>Arrange-Act-Assert Testing</h3>
+                    <div class="code-block good"><pre><code class="language-python">import pandas as pd
 
-def test_clean_survey_data_removes_invalid_scores():
-    # Arrange
-    test_data = pd.DataFrame({
-        'user_id': [1, 2, 3, 4],
-        'score': [85, -5, 95, 0]
-    })
-    
-    # Act
-    result = clean_survey_data(test_data)
-    
-    # Assert
-    assert len(result) == 2
-    assert all(result['score'] > 0)
+# ARRANGE: Set up test data
+test_data = pd.DataFrame({
+    'user_id': [1, 2, 3, 4],
+    'score': [85, -5, 95, 0]
+})
 
-def test_clean_survey_data_missing_columns():
-    # Test error handling
-    test_data = pd.DataFrame({'other_col': [1, 2, 3]})
-    
-    with pytest.raises(ValueError, match="Missing columns"):
-        clean_survey_data(test_data)</div>
+# ACT: Call the function
+result = clean_survey_data(test_data)
+
+# ASSERT: Verify the expected behavior
+assert len(result) == 2, f"Expected 2 rows, got {len(result)}"
+assert all(result['score'] > 0), "All scores should be positive"
+
+print("✓ Test passed: Invalid scores removed correctly")
+
+
+# Test error handling
+test_data_bad = pd.DataFrame({'other_col': [1, 2, 3]})
+
+try:
+    clean_survey_data(test_data_bad)
+    assert False, "Should have raised ValueError"
+except ValueError as e:
+    assert "Missing columns" in str(e)
+    print("✓ Test passed: Missing columns detected")</code></pre></div>
                 </div>
             </div>
             <div class="highlight">
-                <p><strong>Key Teaching Points:</strong> Systematic debugging saves time and builds professional habits. Look for print statements instead of logging, functions without error handling, and missing tests. Help students see testing as insurance, not extra work.</p>
+                <p><strong>Key Teaching Points:</strong> Systematic debugging saves time and builds professional habits. Look for print statements instead of logging and functions without error handling. The Arrange-Act-Assert pattern structures tests clearly - simple assertions are usually sufficient. While pytest is the professional standard, basic assertions help students start testing without additional tools.</p>
             </div>
         </div>
     </div>
@@ -494,7 +516,7 @@ def test_clean_survey_data_missing_columns():
             <h3>Modern Project Structure with uv</h3>
             <div class="two-column">
                 <div>
-                    <div class="code-block"># Dockerfile
+                    <div class="code-block"><pre><code class="language-dockerfile"># Dockerfile
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
 WORKDIR /app
@@ -509,10 +531,10 @@ RUN uv sync --frozen --no-dev
 COPY . .
 
 # Default command
-CMD ["uv", "run", "python", "app.py"]</div>
+CMD ["uv", "run", "python", "app.py"]</code></pre></div>
                 </div>
                 <div>
-                    <div class="code-block"># Makefile
+                    <div class="code-block"><pre><code class="language-makefile"># Makefile
 IMAGE=project-name
 .PHONY: build run test lint sync
 
@@ -537,7 +559,7 @@ lint:
 sync:
 	docker run --rm -it \
 		-v $(PWD):/app -w /app \
-		$(IMAGE) uv sync</div>
+		$(IMAGE) uv sync</code></pre></div>
                 </div>
             </div>
             <div class="highlight">
@@ -631,7 +653,7 @@ sync:
             <div class="two-column">
                 <div>
                     <h3>Student Workflow</h3>
-                    <div class="code-block"># 1. Create feature branch
+                    <div class="code-block"><pre><code class="language-bash"># 1. Create feature branch
 git checkout -b jd/my-feature
 
 # 2. Work and commit regularly  
@@ -644,7 +666,7 @@ git checkout jd/my-feature && git rebase main
 
 # 4. Open PR when ready
 # 5. Address feedback
-# 6. TA merges after approval</div>
+# 6. TA merges after approval</code></pre></div>
                 </div>
                 <div>
                     <h3>Benefits</h3>
@@ -747,6 +769,9 @@ git checkout jd/my-feature && git rebase main
                     </ul>
                 </div>
             </div>
+            <div class="highlight" style="margin-top: 30px;">
+                <p><strong>For more code review guidelines and best practices:</strong> <a href="https://dsi-clinic.github.io/ta-training/technical/code-review.html" target="_blank">https://dsi-clinic.github.io/ta-training/technical/code-review.html</a></p>
+            </div>
         </div>
     </div>
     
@@ -779,7 +804,7 @@ git checkout jd/my-feature && git rebase main
             
             <div class="highlight">
                 <h3>Sample Review Comment</h3>
-                <div class="code-block"># Instead of: "Fix the paths"
+                <div class="code-block"><pre><code class=""># Instead of: "Fix the paths"
 # Try: 
 
 "I notice this hardcoded path might break on other machines:
@@ -790,7 +815,7 @@ Could we use a relative path instead? Something like:
 `data_path = Path(__file__).parent / 'data' / 'survey.csv'`
 `df = pd.read_csv(data_path)`
 
-This way anyone can run your code."</div>
+This way anyone can run your code."</code></pre></div>
             </div>
         </div>
     </div>
@@ -804,7 +829,7 @@ This way anyone can run your code."</div>
                     <h3>Immediate Escalation</h3>
                     <ul>
                         <li><strong>Security issues:</strong> Committed secrets, exposed credentials</li>
-                        <li><strong>Plagiarism concerns:</strong> Suspicious code similarities</li>
+                        <li><strong>Plagiarism concerns:</strong> Taking credit for someone else's work without attribution</li>
                         <li><strong>Scope creep:</strong> Project requirements changing significantly</li>
                         <li><strong>Team conflicts:</strong> Students not collaborating effectively</li>
                     </ul>
@@ -830,7 +855,7 @@ This way anyone can run your code."</div>
                 </ul>
             </div>
             
-            <div class="code-block"># Good escalation message:
+            <div class="code-block"><pre><code class="language-text"># Good escalation message:
 "I've noticed 3 teams this week struggling with Docker setup on Windows machines. 
 They're getting permission errors when mounting volumes. This is blocking their 
 ability to run `make test`. 
@@ -839,7 +864,7 @@ Suggested fix: Add Windows-specific Make targets or update the handbook with
 Windows Docker Desktop configuration steps.
 
 This affects ~40% of our current cohort. Can we address this in Friday's 
-all-hands meeting?"</div>
+all-hands meeting?"</code></pre></div>
         </div>
     </div>
     
@@ -848,7 +873,7 @@ all-hands meeting?"</div>
         <div class="slide-content">
             <h2>Practice Time - Let's Review Code Together</h2>
             
-            <div class="code-block">def process_survey_data():
+            <div class="code-block"><pre><code class="language-python">def process_survey_data():
     data = pd.read_csv('/Users/alice/Documents/clinic/survey_data.csv')
     
     print("Data loaded successfully!")
@@ -867,7 +892,7 @@ all-hands meeting?"</div>
         json.dump(results, f)
     
     print(f"Analysis complete! Average satisfaction: {avg}")
-    return results</div>
+    return results</code></pre></div>
             
             <div class="highlight">
                 <h3>Discussion Questions</h3>
@@ -961,54 +986,162 @@ all-hands meeting?"</div>
         <div class="slide-content" style="text-align: center; margin-top: 100px;">
             <h1>Appendix</h1>
             <div style="margin-top: 20px;">
-                <h2>Technical Deep Dives</h2>
-                <h3>Detailed reference materials for specific topics</h3>
+                <h2>Essential TA Guidelines</h2>
+                <h3>Critical topics for effective student coaching</h3>
                 <div class="highlight" style="margin-top: 40px;">
-                    <p>These slides provide in-depth coverage of additional technical topics. Use them as reference during code reviews or for follow-up discussions with students.</p>
-                    <p><strong>Topics covered:</strong> Type hints, Python best practices, Pydantic validation, configuration management, dependency management, I/O separation patterns, and logging & error messages.</p>
+                    <p>These slides cover essential topics for TAs working with students. Use them as reference during code reviews and student interactions.</p>
+                    <p><strong>Topics covered:</strong> AI usage guidelines, repository hygiene, type hints, Python best practices, Pydantic validation, configuration management, dependency management, I/O separation patterns, and logging & error messages.</p>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- Slide 18: Type Hints for Clarity -->
+    <!-- Slide 18: AI Usage Guidelines -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>AI Usage Guidelines</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Appropriate AI Use</h3>
+                    <ul>
+                        <li><strong>Learning & Understanding:</strong> Explain concepts, debug errors</li>
+                        <li><strong>Code Review:</strong> Generate test cases, suggest improvements</li>
+                        <li><strong>Documentation:</strong> Help write clear docstrings and comments</li>
+                        <li><strong>Problem-Solving:</strong> Brainstorm approaches, not solutions</li>
+                    </ul>
+                    
+                    <h3>Detecting AI-Generated Code</h3>
+                    <ul>
+                        <li><strong>Overly generic:</strong> Perfect but lacks project context</li>
+                        <li><strong>Unnecessary complexity:</strong> Over-engineered for simple tasks</li>
+                        <li><strong>Missing project specifics:</strong> No hardcoded paths or project structure</li>
+                        <li><strong>Inconsistent style:</strong> Doesn't match student's usual patterns</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Inappropriate AI Use</h3>
+                    <ul>
+                        <li><strong>Complete solutions:</strong> Copy-pasting entire functions/scripts</li>
+                        <li><strong>Without understanding:</strong> Can't explain the code</li>
+                        <li><strong>No attribution:</strong> Presenting AI work as original</li>
+                    </ul>
+                    
+                    <h3>How to Address AI Usage</h3>
+                    <ul>
+                        <li><strong>Ask questions:</strong> "Can you walk me through this logic?"</li>
+                        <li><strong>Request explanation:</strong> "Help me understand this approach"</li>
+                        <li><strong>Focus on learning:</strong> "Let's trace through this together"</li>
+                        <li><strong>Encourage attribution:</strong> "Did you use any AI assistance here?"</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <h3>Escalation Guidelines</h3>
+                <ul>
+                    <li><strong>Immediate escalation:</strong> Clear evidence of AI-generated solutions for graded work</li>
+                    <li><strong>Pattern escalation:</strong> Consistent use of AI without understanding across multiple submissions</li>
+                    <li><strong>Documentation:</strong> Save examples, note inability to explain code, record conversation</li>
+                    <li><strong>Educational approach:</strong> Focus on learning outcomes rather than punishment</li>
+                </ul>
+            </div>
+            
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> AI is a tool for learning, not a shortcut to avoid understanding. Help students use AI responsibly by focusing on comprehension and attribution. The goal is building skills, not just producing code.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 19: Repository Hygiene -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Repository Hygiene</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Code Debt Management</h3>
+                    <ul>
+                        <li><strong>Address review comments promptly:</strong> Don't let PRs sit for weeks</li>
+                        <li><strong>Close completed PRs:</strong> Merge or close within 1-2 weeks</li>
+                        <li><strong>Clean up branches:</strong> Delete merged feature branches</li>
+                        <li><strong>Regular maintenance:</strong> Weekly time for technical debt</li>
+                    </ul>
+                    
+                    <h3>Time Allocation</h3>
+                    <ul>
+                        <li><strong>20-30% of time</strong> responding to code review feedback</li>
+                        <li><strong>3-5 day response time</strong> for review comments</li>
+                        <li><strong>Maximum 2-3 open PRs</strong> per student</li>
+                        <li><strong>Batch similar changes</strong> into single commits</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Continuous Work Strategy</h3>
+                    <div class="code-block"><pre><code class="language-bash"># While PR is under review, continue building on it
+git checkout jd/current-feature
+git checkout -b jd/current-feature-part2
+
+# Continue development
+git add . && git commit -m "Build on current feature"
+
+# When current PR merges, update and open new PR
+git checkout main && git pull
+git checkout jd/current-feature-part2
+git rebase main</code></pre></div>
+                    
+                    <h3>Preventing Bloat</h3>
+                    <ul>
+                        <li><strong>Remove unused files:</strong> Old notebooks, temp scripts</li>
+                        <li><strong>Consolidate code:</strong> Merge duplicate functions</li>
+                        <li><strong>Clean imports:</strong> Remove unused dependencies</li>
+                        <li><strong>Archive old work:</strong> Move experiments to separate branches</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <p><strong>Key Teaching Points:</strong> Code debt accumulates quickly over a quarter. Help students develop habits of regular maintenance and prompt response to feedback. A clean repository is easier to review, understand, and maintain.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 20: Type Hints for Clarity -->
     <div class="slide">
         <div class="slide-content">
             <h2>Type Hints for Clarity</h2>
             <div class="two-column">
                 <div>
                     <h3>Unclear Function</h3>
-                    <div class="code-block bad">def process_data(data, config):
+                    <div class="code-block bad"><pre><code class="language-python">def process_data(data, config):
     # What type is data? 
     # What does config contain?
     # What gets returned?
     result = analyze(data, config)
-    return result</div>
+    return result</code></pre></div>
                     
                     <h3>Runtime Error</h3>
-                    <div class="code-block bad">def calculate_average(scores):
+                    <div class="code-block bad"><pre><code class="language-python">def calculate_average(scores):
     return sum(scores) / len(scores)
 
 # Later...
-calculate_average("85,90,78")  # TypeError!</div>
+calculate_average("85,90,78")  # TypeError!</code></pre></div>
                 </div>
                 <div>
                     <h3>Clear Expectations</h3>
-                    <div class="code-block good">def process_survey_data(
+                    <div class="code-block good"><pre><code class="language-python">def process_survey_data(
     data: pd.DataFrame, 
     config: AnalysisConfig
 ) -> Dict[str, float]:
     """Process survey data and return statistics."""
     result = analyze(data, config)
-    return result</div>
+    return result</code></pre></div>
                     
                     <h3>Early Detection</h3>
-                    <div class="code-block good">def calculate_average(scores: List[float]) -> float:
+                    <div class="code-block good"><pre><code class="language-python">def calculate_average(scores: List[float]) -> float:
     """Calculate mean of numeric scores."""
     return sum(scores) / len(scores)
 
 # Type checker catches error before runtime
-calculate_average("85,90,78")  # mypy error!</div>
+calculate_average("85,90,78")  # mypy error!</code></pre></div>
                 </div>
             </div>
             <div class="highlight">
@@ -1017,33 +1150,33 @@ calculate_average("85,90,78")  # mypy error!</div>
         </div>
     </div>
     
-    <!-- Slide 19: Python Best Practices -->
+    <!-- Slide 21: Python Best Practices -->
     <div class="slide">
         <div class="slide-content">
             <h2>Python Best Practices</h2>
             <div class="two-column">
                 <div>
                     <h3>Mutable Default Arguments</h3>
-                    <div class="code-block bad">def add_item(item, items=[]):
+                    <div class="code-block bad"><pre><code class="language-python">def add_item(item, items=[]):
     items.append(item)
     return items
 
 # Dangerous! Same list shared across calls
 list1 = add_item("apple")     # ["apple"]
-list2 = add_item("banana")    # ["apple", "banana"]</div>
+list2 = add_item("banana")    # ["apple", "banana"]</code></pre></div>
                     
                     <h3>Variable Scope Issues</h3>
-                    <div class="code-block bad">results = []
+                    <div class="code-block bad"><pre><code class="language-python">results = []
 for i in range(3):
     # Late binding closure problem
     results.append(lambda: i * 2)
 
 # All functions return 4 (i=2)
-[f() for f in results]  # [4, 4, 4]</div>
+[f() for f in results]  # [4, 4, 4]</code></pre></div>
                 </div>
                 <div>
                     <h3>Safe Default Arguments</h3>
-                    <div class="code-block good">def add_item(item, items=None):
+                    <div class="code-block good"><pre><code class="language-python">def add_item(item, items=None):
     if items is None:
         items = []
     items.append(item)
@@ -1051,16 +1184,16 @@ for i in range(3):
 
 # Each call gets fresh list
 list1 = add_item("apple")     # ["apple"]
-list2 = add_item("banana")    # ["banana"]</div>
+list2 = add_item("banana")    # ["banana"]</code></pre></div>
                     
                     <h3>Explicit Closures</h3>
-                    <div class="code-block good">results = []
+                    <div class="code-block good"><pre><code class="language-python">results = []
 for i in range(3):
     # Capture i explicitly
     results.append(lambda x=i: x * 2)
 
 # Each function has its own value
-[f() for f in results]  # [0, 2, 4]</div>
+[f() for f in results]  # [0, 2, 4]</code></pre></div>
                 </div>
             </div>
             <div class="highlight">
@@ -1069,14 +1202,14 @@ for i in range(3):
         </div>
     </div>
     
-    <!-- Slide 20: Data Validation with Pydantic -->
+    <!-- Slide 22: Data Validation with Pydantic -->
     <div class="slide">
         <div class="slide-content">
             <h2>Data Validation with Pydantic</h2>
             <div class="two-column">
                 <div>
                     <h3>Without Validation</h3>
-                    <div class="code-block bad">def process_config(config_dict):
+                    <div class="code-block bad"><pre><code class="language-python">def process_config(config_dict):
     # What if keys are missing?
     # What if values are wrong type?
     db_url = config_dict["database_url"]
@@ -1084,11 +1217,11 @@ for i in range(3):
     debug = config_dict["debug_mode"]
     
     # Runtime errors waiting to happen
-    return setup_pipeline(db_url, max_workers, debug)</div>
+    return setup_pipeline(db_url, max_workers, debug)</code></pre></div>
                 </div>
                 <div>
                     <h3>With Pydantic</h3>
-                    <div class="code-block good">from pydantic import BaseModel, Field
+                    <div class="code-block good"><pre><code class="language-python">from pydantic import BaseModel, Field
 
 class PipelineConfig(BaseModel):
     database_url: str = Field(..., min_length=1)
@@ -1102,7 +1235,7 @@ class PipelineConfig(BaseModel):
         return v
 
 # Validates automatically on creation
-config = PipelineConfig(**config_dict)</div>
+config = PipelineConfig(**config_dict)</code></pre></div>
                 </div>
             </div>
             <div class="highlight">
@@ -1111,14 +1244,14 @@ config = PipelineConfig(**config_dict)</div>
         </div>
     </div>
     
-    <!-- Slide 21: Configuration Management -->
+    <!-- Slide 23: Configuration Management -->
     <div class="slide">
         <div class="slide-content">
             <h2>Configuration Management</h2>
             <div class="two-column">
                 <div>
                     <h3>Hardcoded Configuration</h3>
-                    <div class="code-block bad">def analyze_data():
+                    <div class="code-block bad"><pre><code class="language-python">def analyze_data():
     # Hardcoded values scattered throughout
     df = pd.read_csv("/Users/alice/data/survey.csv")
     
@@ -1130,19 +1263,19 @@ config = PipelineConfig(**config_dict)</div>
     conn = sqlite3.connect("project_db.sqlite")
     
     # API key in source code
-    api_key = "sk-1234567890abcdef"</div>
+    api_key = "sk-1234567890abcdef"</code></pre></div>
                     
                     <h3>Environment Variables</h3>
-                    <div class="code-block bad"># .env file (often missing .env.example)
+                    <div class="code-block bad"><pre><code class="language-bash"># .env file (often missing .env.example)
 DATA_PATH=/Users/alice/data/survey.csv
 CONFIDENCE_LEVEL=0.95
 MIN_SAMPLES=50
 DB_URL=sqlite:///project_db.sqlite
-API_KEY=sk-1234567890abcdef</div>
+API_KEY=sk-1234567890abcdef</code></pre></div>
                 </div>
                 <div>
                     <h3>Pydantic Settings Class</h3>
-                    <div class="code-block good">from pydantic_settings import BaseSettings
+                    <div class="code-block good"><pre><code class="language-python">from pydantic_settings import BaseSettings
 from pathlib import Path
 
 class AnalysisConfig(BaseSettings):
@@ -1170,15 +1303,15 @@ class AnalysisConfig(BaseSettings):
         env_file = ".env"
 
 # Usage with automatic validation
-config = AnalysisConfig()</div>
+config = AnalysisConfig()</code></pre></div>
                     
                     <h3>.env.example File</h3>
-                    <div class="code-block good"># .env.example - commit this file
+                    <div class="code-block good"><pre><code class="language-bash"># .env.example - commit this file
 DATA_PATH=./data/survey.csv
 CONFIDENCE_LEVEL=0.95
 MIN_SAMPLES=50
 DATABASE_URL=sqlite:///your_database.sqlite
-API_KEY=your_api_key_here</div>
+API_KEY=your_api_key_here</code></pre></div>
                 </div>
             </div>
             <div class="highlight">
@@ -1187,39 +1320,39 @@ API_KEY=your_api_key_here</div>
         </div>
     </div>
     
-    <!-- Slide 22: Dependencies and Environments -->
+    <!-- Slide 24: Dependencies and Environments -->
     <div class="slide">
         <div class="slide-content">
             <h2>Dependencies and Environments</h2>
             <div class="two-column">
                 <div>
                     <h3>Unpinned Dependencies</h3>
-                    <div class="code-block bad"># Old requirements.txt approach
+                    <div class="code-block bad"><pre><code class="language-text"># Old requirements.txt approach
 pandas
 numpy
 scikit-learn
 matplotlib
-requests</div>
+requests</code></pre></div>
                     
                     <h3>Local Installation</h3>
-                    <div class="code-block bad"># Student runs on their laptop
+                    <div class="code-block bad"><pre><code class="language-bash"># Student runs on their laptop
 pip install pandas numpy scikit-learn
 
 # Works for them, breaks for teammates
 # Different package versions
 # Different Python versions
-# Different operating systems</div>
+# Different operating systems</code></pre></div>
                     
                     <h3>Missing Documentation</h3>
-                    <div class="code-block bad"># README.md
+                    <div class="code-block bad"><pre><code class="language-markdown"># README.md
 ## Setup
 1. Install Python
 2. Run the code
-3. Hope it works</div>
+3. Hope it works</code></pre></div>
                 </div>
                 <div>
                     <h3>Modern Dependencies</h3>
-                    <div class="code-block good"># pyproject.toml
+                    <div class="code-block good"><pre><code class="language-toml"># pyproject.toml
 [project]
 name = "survey-analysis"
 dependencies = [
@@ -1232,20 +1365,20 @@ dependencies = [
 dev = [
     "pytest==8.1.1",
     "ruff==0.4.2",
-]</div>
+]</code></pre></div>
                     
                     <h3>uv + Docker Environment</h3>
-                    <div class="code-block good"># Dockerfile
+                    <div class="code-block good"><pre><code class="language-dockerfile"># Dockerfile
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev
 COPY . .
-CMD ["uv", "run", "python", "app.py"]</div>
+CMD ["uv", "run", "python", "app.py"]</code></pre></div>
                     
                     <h3>Clear Setup Instructions</h3>
-                    <div class="code-block good"># README.md
+                    <div class="code-block good"><pre><code class="language-markdown"># README.md
 ## Setup
 1. Install Docker Desktop
 2. Clone this repository
@@ -1255,7 +1388,7 @@ CMD ["uv", "run", "python", "app.py"]</div>
 
 ## Development
 - `make shell` - Interactive container
-- `make sync` - Update dependencies</div>
+- `make sync` - Update dependencies</code></pre></div>
                 </div>
             </div>
             <div class="highlight">
@@ -1264,14 +1397,14 @@ CMD ["uv", "run", "python", "app.py"]</div>
         </div>
     </div>
     
-    <!-- Slide 23: Separate I/O from Computation -->
+    <!-- Slide 25: Separate I/O from Computation -->
     <div class="slide">
         <div class="slide-content">
             <h2>Separate I/O from Computation</h2>
             <div class="two-column">
                 <div>
                     <h3>Mixed Together</h3>
-                    <div class="code-block bad">def analyze_survey():
+                    <div class="code-block bad"><pre><code class="language-python">def analyze_survey():
     # I/O mixed with computation
     df = pd.read_csv("data/survey.csv")
     
@@ -1282,11 +1415,11 @@ CMD ["uv", "run", "python", "app.py"]</div>
     with open("results.json", "w") as f:
         json.dump({"avg": avg_score}, f)
     
-    print(f"Average: {avg_score}")</div>
+    print(f"Average: {avg_score}")</code></pre></div>
                 </div>
                 <div>
                     <h3>Separated</h3>
-                    <div class="code-block good">def calculate_satisfaction_stats(
+                    <div class="code-block good"><pre><code class="language-python">def calculate_satisfaction_stats(
     df: pd.DataFrame
 ) -> Dict[str, float]:
     """Pure function - easy to test."""
@@ -1303,7 +1436,7 @@ def main():
     stats = calculate_satisfaction_stats(df)
     
     # I/O layer
-    save_results(stats, OUTPUT_PATH)</div>
+    save_results(stats, OUTPUT_PATH)</code></pre></div>
                 </div>
             </div>
             <div class="highlight">
@@ -1312,14 +1445,14 @@ def main():
         </div>
     </div>
     
-    <!-- Slide 24: Logging & Specific Error Messages -->
+    <!-- Slide 26: Logging & Specific Error Messages -->
     <div class="slide">
         <div class="slide-content">
             <h2>Logging & Specific Error Messages</h2>
             <div class="two-column">
                 <div>
                     <h3>Poor Error Handling</h3>
-                    <div class="code-block bad">def load_data(path):
+                    <div class="code-block bad"><pre><code class="language-python">def load_data(path):
     df = pd.read_csv(path)  
     # FileNotFoundError: [Errno 2] No such file
     
@@ -1327,11 +1460,11 @@ def main():
     # AssertionError (no context!)
     
     print("Data loaded")  # Can't control output
-    return df</div>
+    return df</code></pre></div>
                 </div>
                 <div>
                     <h3>Helpful Error Messages</h3>
-                    <div class="code-block good">import logging
+                    <div class="code-block good"><pre><code class="language-python">import logging
 logger = logging.getLogger(__name__)
 
 def load_survey_data(path: Path) -> pd.DataFrame:
@@ -1353,7 +1486,7 @@ def load_survey_data(path: Path) -> pd.DataFrame:
         )
     
     logger.info(f"Loaded {len(df)} survey responses")
-    return df</div>
+    return df</code></pre></div>
                 </div>
             </div>
             <div class="highlight">
@@ -1361,7 +1494,7 @@ def load_survey_data(path: Path) -> pd.DataFrame:
             </div>
         </div>
     </div>
-    
+
     <script>
         console.log('Script loading...');
         
