@@ -27,6 +27,9 @@ This section documents the **technical standards, workflows, and review practice
 - [Code Review](./code-review.md)  
   Guidelines for TAs when reviewing pull requests and student repos.
 
+- [AI Usage Guidelines](./ai-usage-guidelines.md)  
+  Guidelines for handling AI-assisted code in student projects and code reviews.
+
 - [GitHub Repo Management](./github-repo-management.md)  
   Branching strategies, PR workflows, and common scenarios TAs encounter with student repositories.
 
