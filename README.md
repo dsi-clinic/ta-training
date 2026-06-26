@@ -41,5 +41,4 @@ As a TA, you are expected to:
 ## Contact
 If issues arise that are beyond the TA scope, escalate promptly:  
 - **Mentor**: First line of escalation for technical/project issues.
-- **Assistant Clinic Director (Tim Hannifan)**: Escalation for grading disputes, unprofessional behavior, or exceptions.
-- **Clinic Director (Nick Ross)**: Escalation for grading disputes, unprofessional behavior, or exceptions.  
+- **Clinic Director**: Escalation for grading disputes, unprofessional behavior, or exceptions.  

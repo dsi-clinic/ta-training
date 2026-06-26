@@ -25,7 +25,7 @@ Always check the official Clinic website first for the most up-to-date informati
   - [Repo evaluation checklist](https://clinic.ds.uchicago.edu/rubrics/final-technical-cleanup.html) - Final technical cleanup rubric.  
 - **Mentorship Support:**  
   - Point of contact: assigned project mentor.  
-  - Escalation: Clinic Director (Nick Ross).  
+  - Escalation: Clinic Director.  
 
 ## Recommended References
 - **Python Development:**  
